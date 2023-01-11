@@ -18,6 +18,7 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <lombok-version>1.18.24</lombok-version>
     </properties>
 
     <dependencies>
@@ -58,7 +59,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>${lombok-version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring Security. Spring Security is a powerful and highly customizable authentication and access-control framework. -->
@@ -73,6 +75,14 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
+        </dependency>
+
+        <!-- Open Api with Swagger UI -->
+        <!-- http://localhost:8080/swagger-ui/index.html -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
     </dependencies>

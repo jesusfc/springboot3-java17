@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <lombok-version>1.18.24</lombok-version>
+        <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
     </properties>
 
     <dependencies>
@@ -38,13 +39,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
--->
-
 
         <!-- Spring Boot DevTools.Provides fast application restarts, LiveRoload,
             and configurations for enhanced development experience. -->
@@ -74,7 +73,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
 
         <!-- Open Api with Swagger UI -->

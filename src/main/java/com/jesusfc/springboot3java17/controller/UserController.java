@@ -1,6 +1,6 @@
 package com.jesusfc.springboot3java17.controller;
 
-import com.jesusfc.springboot3java17.configuration.YAMLConfig;
+import com.jesusfc.springboot3java17.configuration.YamlfileConfig.YAMLConfig;
 import com.jesusfc.springboot3java17.model.User;
 import com.jesusfc.springboot3java17.repository.UserRepository;
 import org.springframework.http.HttpStatus;

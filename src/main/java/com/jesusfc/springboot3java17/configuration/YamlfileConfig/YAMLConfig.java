@@ -1,21 +1,17 @@
-package com.jesusfc.springboot3java17.configuration;
+package com.jesusfc.springboot3java17.configuration.YamlfileConfig;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Configuration
-@EnableConfigurationProperties
-@ConfigurationProperties
-/*
-@ConfigurationProperties(prefix = "yaml")
-@PropertySource(value = "classpath:foo.yml", factory = YamlPropertySourceFactory.class)
- */
+@ConfigurationProperties()
+@PropertySource(value = "classpath:application-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class)
 @Data
 public class YAMLConfig {
 

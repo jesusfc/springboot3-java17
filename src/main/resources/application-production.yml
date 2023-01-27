@@ -1,0 +1,22 @@
+################################################
+################# PRODUCTION ###################
+################################################
+name: prod-YAML
+environment: prod
+enabled: true
+servers:
+  - www.abc.com
+  - www.xyz.com
+default-property-style:
+  company-mcxt:
+    image-id: 123
+    primary-color: #1e549d
+  company-y:
+    image-id: 456
+    primary-color: #e30613
+  company-z:
+    image-id: 789
+    primary-color: #02687f
+  company-t:
+    image-id: 000
+    primary-color: #02687f

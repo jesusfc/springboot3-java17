@@ -15,7 +15,7 @@
     <description>springboot3-java17</description>
 
     <properties>
-        <start-class>com.senyprojects.eshitv.api.Application</start-class>
+        <start-class>com.jesusfc.springboot3java17.Springboot3Java17Application</start-class>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

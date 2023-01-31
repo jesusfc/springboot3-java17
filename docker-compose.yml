@@ -4,15 +4,15 @@ services:
     build: .
     restart: always
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - mysqldb
   mysqldb:
-    image: "mysql:8.0"
+    image: "mysql:latest"
     platform: linux/x86_64
     restart: always
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       - MYSQL_DATABASE=MySqlDB
       - MYSQL_USER=user

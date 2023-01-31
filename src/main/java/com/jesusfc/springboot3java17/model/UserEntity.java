@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Entity(name = "user")
-public class User {
+public class UserEntity {
     @Id
     @Column(name = "email", nullable = false)
     private String email;

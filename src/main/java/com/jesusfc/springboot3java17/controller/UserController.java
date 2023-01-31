@@ -1,7 +1,7 @@
 package com.jesusfc.springboot3java17.controller;
 
 import com.jesusfc.springboot3java17.configuration.YamlfileConfig.YAMLConfig;
-import com.jesusfc.springboot3java17.model.User;
+import com.jesusfc.springboot3java17.model.UserEntity;
 import com.jesusfc.springboot3java17.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{email}")
-    public ResponseEntity<User> getUserById(@PathVariable(value = "email") String email) {
-        Optional<User> byId = userRepository.findById(email);
+    public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "email") String email) {
+        Optional<UserEntity> byId = userRepository.findById(email);
         return byId.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

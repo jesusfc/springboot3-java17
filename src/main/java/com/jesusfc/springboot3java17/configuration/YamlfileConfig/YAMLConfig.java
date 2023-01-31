@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Configuration
 @ConfigurationProperties()
-@PropertySource(value = "classpath:application-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class)
+@PropertySource(value = "classpath:application-${spring.profiles.active}.yml", factory = YamlPropertySourceFactory.class, ignoreResourceNotFound = true)
 @Data
 public class YAMLConfig {
 

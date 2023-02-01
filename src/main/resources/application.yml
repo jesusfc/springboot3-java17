@@ -9,6 +9,28 @@ spring:
       on-profile: development
     import:
       - application-development.yml
+###########################
+#### DATABASE SETTINGS ####
+###########################
+  datasource:
+    url: jdbc:mysql://localhost:3306/MySqlDB
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  ###########################
+  ###### JPA SETTINGS #######
+  ###########################
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
 ---
 spring:
   application:

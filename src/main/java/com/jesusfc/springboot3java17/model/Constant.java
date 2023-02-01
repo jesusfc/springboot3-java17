@@ -3,7 +3,7 @@ package com.jesusfc.springboot3java17.model;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public final class UserConstant {
+public final class Constant {
 
     public static final int NAME_MIN_CHAR = 2;
     public static final int NAME_MAX_CHAR = 40;

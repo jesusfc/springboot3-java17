@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import static com.jesusfc.springboot3java17.model.UserConstant.*;
+import static com.jesusfc.springboot3java17.model.Constant.*;
 
 @Getter
 @Setter

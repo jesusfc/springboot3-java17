@@ -8,7 +8,7 @@ spring:
     activate:
       on-profile: development
     import:
-      - application-development.yml
+      - company-config-development.yml
 ###########################
 #### DATABASE SETTINGS ####
 ###########################
@@ -29,7 +29,7 @@ spring:
       hibernate:
         format_sql: true
     database: mysql
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
 ---
 spring:
@@ -39,4 +39,4 @@ spring:
     activate:
       on-profile: production
     import:
-      - application-production.yml
+      - company-config-production.yml

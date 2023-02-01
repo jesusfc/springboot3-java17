@@ -1,9 +1,20 @@
+##############################
+###### GENERAL SETTINGS ######
+##############################
 spring:
+  application:
+    name: SpringBoot 3 Development
   config:
     activate:
       on-profile: development
+    import:
+      - application-development.yml
 ---
 spring:
+  application:
+    name: SpringBoot 3 Production
   config:
     activate:
       on-profile: production
+    import:
+      - application-production.yml

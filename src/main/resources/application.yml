@@ -31,6 +31,14 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
+###########################
+#### SECURITY SETTINGS ####
+###########################
+security:
+  jwt:
+    secret-key: wC0kL2XCJEbYITs2qJEBjA8NRFB3A54zh6EXMWvc6gCvY125VhR2aTf2FqxfJ1F26xWaPniR2mVh5nBpIlgDSdposd546SDgsdgSRDF35SDgjs4dsgsd542rtefSDGShfdh
+    issuer: The Rebel Alliance
+    expiration-in-ms: 14400000
 ---
 spring:
   application:

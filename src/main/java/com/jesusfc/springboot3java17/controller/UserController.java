@@ -26,8 +26,6 @@ public class UserController {
 
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        System.out.println(yamlConfig.toString());
-        System.out.println(yamlConfig.getDefaultPropertyStyle().toString());
         return String.format("Hello %s!", name);
     }
 

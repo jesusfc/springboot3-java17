@@ -1,6 +1,6 @@
-package com.jesusfc.springboot3java17.repository;
+package com.jesusfc.springboot3java17.database.repository;
 
-import com.jesusfc.springboot3java17.entity.UserEntity;
+import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

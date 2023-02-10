@@ -1,7 +1,7 @@
 package com.jesusfc.springboot3java17.controller;
 
 
-import com.jesusfc.springboot3java17.entity.UserEntity;
+import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

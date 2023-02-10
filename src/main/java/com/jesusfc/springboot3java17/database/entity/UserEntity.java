@@ -1,4 +1,4 @@
-package com.jesusfc.springboot3java17.entity;
+package com.jesusfc.springboot3java17.database.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,7 +1,7 @@
 package com.jesusfc.springboot3java17.services;
 
-import com.jesusfc.springboot3java17.entity.UserEntity;
-import com.jesusfc.springboot3java17.repository.UserRepository;
+import com.jesusfc.springboot3java17.database.entity.UserEntity;
+import com.jesusfc.springboot3java17.database.repository.UserRepository;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;

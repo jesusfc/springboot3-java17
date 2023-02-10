@@ -1,9 +1,8 @@
 package com.jesusfc.springboot3java17.controller;
 
 
-import com.jesusfc.springboot3java17.configuration.YAMLConfig;
-import com.jesusfc.springboot3java17.model.UserEntity;
-import com.jesusfc.springboot3java17.repository.UserRepository;
+import com.jesusfc.springboot3java17.entity.UserEntity;
+import com.jesusfc.springboot3java17.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +10,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 public class UserController {
 
-    private final YAMLConfig yamlConfig;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(YAMLConfig yamlConfig, UserRepository userRepository) {
-        this.yamlConfig = yamlConfig;
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping("/users-list")
+    public ResponseEntity<UserEntity> getUserList() {
+        List<UserEntity> userList = userService.getUserList();
     }
 
     @GetMapping("/hello")
@@ -31,7 +33,8 @@ public class UserController {
 
     @GetMapping("/user/{email}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "email") String email) {
-        Optional<UserEntity> byId = userRepository.findById(email);
-        return byId.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        UserEntity byEmail = userService.getUserByEmail(email);
+        if (byEmail == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(byEmail, HttpStatus.OK);
     }
 }

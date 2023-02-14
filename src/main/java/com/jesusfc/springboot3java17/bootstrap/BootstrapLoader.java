@@ -29,12 +29,12 @@ public class BootstrapLoader implements CommandLineRunner {
                     .email("jfcaraballo@gmail.com")
                     .enabled(true)
                     .name("Jesús")
-                    .password("pass").build());
+                    .password("$2a$10$giokU5/.OtZE/G5y.1z4FOab7kmAoL2c0L/RCYok4r.xmL129GpgS").build());
             userEntities.add(UserEntity.builder()
                     .email("jesus.fdez.caraballo@gmail.com")
                     .enabled(true)
                     .name("JesúsFdez.")
-                    .password("gogogo").build());
+                    .password("$2a$10$giokU5/.OtZE/G5y.1z4FOab7kmAoL2c0L/RCYok4r.xmL129GpgS").build());
             userRepository.saveAll(userEntities);
         }
     }

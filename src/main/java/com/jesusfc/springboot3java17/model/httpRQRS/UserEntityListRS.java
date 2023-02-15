@@ -1,4 +1,4 @@
-package com.jesusfc.springboot3java17.model.response;
+package com.jesusfc.springboot3java17.model.httpRQRS;
 
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import lombok.AllArgsConstructor;

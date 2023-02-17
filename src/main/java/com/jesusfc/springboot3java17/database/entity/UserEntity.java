@@ -14,8 +14,8 @@ import static com.jesusfc.springboot3java17.model.Constant.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
+@Builder
 @Entity(name = "user")
 public class UserEntity {
     @Id
@@ -26,6 +26,16 @@ public class UserEntity {
     private String email;
     @Column(name = "name")
     private String name;
+
+    public UserEntity(String email, String name, String familyName, boolean enabled) {
+        this.email = email;
+        this.name = name;
+        this.familyName = familyName;
+        this.enabled = enabled;
+    }
+
+    @Column(name = "family_name")
+    private String familyName;
     @Column(name = "password")
     private String password;
     @Column(name = "enabled")

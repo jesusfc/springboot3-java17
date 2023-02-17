@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -19,8 +20,8 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("/rest/user")
+public class UserRestController {
 
     private final UserService userService;
     private final LocaleResolver localeResolver;

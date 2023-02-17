@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users-list")
+    @GetMapping("/list")
     public ResponseEntity<UserEntityListRS> getUserList() {
         List<UserEntity> userList = userService.getUserList();
         return new ResponseEntity<>(UserEntityListRS.userEntityListRS(userList), HttpStatus.OK);

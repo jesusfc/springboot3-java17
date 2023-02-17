@@ -4,3 +4,5 @@ Test the new features of Spring Boot 3, Spring Framework 6.0 and Java 17
 - YML Configuration
 - JPA
 - Project Lombok
+- I18
+

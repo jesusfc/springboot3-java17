@@ -18,7 +18,7 @@ public class BootstrapLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args){
+    public void run(String... args) {
         loadBasics();
     }
 
@@ -29,11 +29,13 @@ public class BootstrapLoader implements CommandLineRunner {
                     .email("jfcaraballo@gmail.com")
                     .enabled(true)
                     .name("Jesús")
+                    .familyName("Fdez.")
                     .password("$2a$10$giokU5/.OtZE/G5y.1z4FOab7kmAoL2c0L/RCYok4r.xmL129GpgS").build());
             userEntities.add(UserEntity.builder()
                     .email("jesus.fdez.caraballo@gmail.com")
                     .enabled(true)
-                    .name("JesúsFdez.")
+                    .name("Abel")
+                    .familyName("Vives")
                     .password("$2a$10$giokU5/.OtZE/G5y.1z4FOab7kmAoL2c0L/RCYok4r.xmL129GpgS").build());
             userRepository.saveAll(userEntities);
         }

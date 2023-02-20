@@ -4,13 +4,13 @@ package com.jesusfc.springboot3java17.controller.rest;
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.model.httpRQRS.UserEntityListRS;
 import com.jesusfc.springboot3java17.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -27,6 +27,7 @@ public class UserRestController {
     private final LocaleResolver localeResolver;
     private final MessageSource messageSource;
 
+    @Operation(operationId = "userList")
     @GetMapping("/list")
     public ResponseEntity<UserEntityListRS> getUserList(Locale locale) {
         String message = messageSource.getMessage("app.name", null, locale);

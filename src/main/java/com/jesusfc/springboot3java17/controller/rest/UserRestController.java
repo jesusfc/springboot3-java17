@@ -36,13 +36,17 @@ public class UserRestController {
         return new ResponseEntity<>(UserEntityListRS.userEntityListRS(userList), HttpStatus.OK);
     }
 
-    @GetMapping("/hello")
-    public String hello(HttpServletRequest request, HttpServletResponse httpResponse, @RequestParam(value = "name", defaultValue = "World") String name) {
+    @GetMapping("/language-by-param")
+    public String hello(HttpServletRequest request, HttpServletResponse httpResponse,
+                        @RequestParam(value = "idioma", defaultValue = "es") String lang) {
+        localeResolver.setLocale(request, httpResponse, new Locale(lang));
+        return String.format("New Language: %s!", lang);
+    }
 
-        localeResolver.setLocale(request, httpResponse, new Locale("en", "EN"));
-
-
-        return String.format("Hello %s!", name);
+    @GetMapping("/language-by-interceptor")
+    public String hello(Locale locale) {
+        String message = messageSource.getMessage("app.name", null, locale);
+        return String.format("Cambiamos el idioma atravez del interceptor: " + message);
     }
 
     @GetMapping("/email/{email}")

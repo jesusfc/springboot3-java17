@@ -15,7 +15,7 @@ import java.util.Locale;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/mvc/app")
+@RequestMapping("/mvc")
 public class IndexController {
 
 	private final MessageSource messageSource;

@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -27,22 +28,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 
-        JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter();
-        jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
-        jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+    //    JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter();
+     //   jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
+     //   jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
         return http
                 .csrf().disable()
-                .authorizeRequests()
+                /*.authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .and()*/
                 .httpBasic().disable()
-                .addFilter(jwtAuthenticationFilter)
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                //.addFilter(jwtAuthenticationFilter)
+                //.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -70,4 +71,5 @@ public class SecurityConfig {
                 .passwordEncoder(passwordEncoder())
                 .and().build();
     }
+
 }

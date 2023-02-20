@@ -22,7 +22,6 @@
         <lombok-version>1.18.24</lombok-version>
         <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <jjwt.version>0.11.5</jjwt.version>
-        <open-api.version>2.0.2</open-api.version>
     </properties>
 
     <dependencies>
@@ -42,20 +41,12 @@
         <!-- Swagger es una herramienta que permite documentar y probar APIs de manera eficiente.
         En Spring Boot 3, la herramienta Swagger se conoce como SpringFox y se puede integrar fácilmente
         con tu aplicación para generar la documentación de tu API. -->
-        <!-- https://swagger.io/specification/ -->
-
-        <!-- Open Api with Swagger UI -->
-        <!-- http://localhost:8080/swagger-ui/index.html -->
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${open-api.version}</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
         </dependency>
-        <!--dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-security</artifactId>
-            <version>${open-api.version}</version>
-        </dependency-->
+
 
         <!-- MVC SERVICES -->
         <dependency>
@@ -73,8 +64,28 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
 
-        <!-- Spring Boot DevTools. Provides fast application restarts, LiveRoload,
+        <!-- Spring Boot DevTools.Provides fast application restarts, LiveRoload,
             and configurations for enhanced development experience. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,6 +102,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Spring Security. Spring Security is a powerful and highly customizable authentication and access-control framework. -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- MySql Database Connector Drivers -->
         <dependency>
             <groupId>mysql</groupId>
@@ -103,6 +121,14 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>8.0.0.Final</version>
+        </dependency>
+
+        <!-- Open Api with Swagger UI -->
+        <!-- http://localhost:8080/swagger-ui/index.html -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
         <!--

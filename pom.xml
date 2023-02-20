@@ -38,6 +38,16 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Swagger es una herramienta que permite documentar y probar APIs de manera eficiente.
+        En Spring Boot 3, la herramienta Swagger se conoce como SpringFox y se puede integrar fácilmente
+        con tu aplicación para generar la documentación de tu API. -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+
         <!-- MVC SERVICES -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

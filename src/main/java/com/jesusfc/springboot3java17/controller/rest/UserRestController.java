@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,9 @@ public class UserRestController {
 
     @GetMapping("/email/{email}")
     public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "email") String email) {
+        Locale locale = LocaleContextHolder.getLocale();
+        String message = messageSource.getMessage("app.name", null, locale);
+        System.out.println("Lang: " + locale.getLanguage() + ", Message: " + message);
         Optional<UserEntity> byEmail = userService.getUserByEmail(email);
         if (byEmail.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(byEmail.get(), HttpStatus.OK);

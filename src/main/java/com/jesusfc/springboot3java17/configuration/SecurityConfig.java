@@ -45,6 +45,22 @@ public class SecurityConfig {
                 //.addFilter(jwtAuthenticationFilter)
                 //.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+
+                /*
+                  public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .cors()//enable cors
+                .and()
+                .csrf().disable()//disable csrf
+                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))//stateless session (Rest)
+                .authorizeHttpRequests(authz->authz
+                        .antMatchers(HttpMethod.GET,"/").permitAll()
+                        .antMatchers(HttpMethod.POST,"/users/login","users/register","users/forgot-password").permitAll()
+                        .antMatchers(HttpMethod.PATCH,"/users/password").permitAll()
+                        .anyRequest().authenticated());//authorize any request except ignored endpoint above
+        return httpSecurity.build();
+                 */
+
     }
 
     /* UserDetailsService para autentificación simbre con user/pass.

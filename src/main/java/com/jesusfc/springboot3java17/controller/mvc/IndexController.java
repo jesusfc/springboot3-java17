@@ -48,17 +48,6 @@ public class IndexController {
 	public String listar(Model model, Locale locale) {
 		String textoListar = messageSource.getMessage("texto.indexcontroller.index.titulo", null, locale);
 		model.addAttribute("titulo", textoListar);
-		
 		return "listar";
 	}
-	
-	@ModelAttribute("usuarios")
-	public List<UserEntity> poblarUsuarios(){
-		List<UserEntity> usuarios = Arrays.asList(new UserEntity("Andrés", "Guzmán", "andres@correo.com", true),
-				new UserEntity("John", "Doe", "john@correo.com", true),
-				new UserEntity("Jane", "Doe", "jane@correo.com", true),
-				new UserEntity("Tornado", "Roe", "roe@correo.com", true));
-		return usuarios;
-	}
-
 }

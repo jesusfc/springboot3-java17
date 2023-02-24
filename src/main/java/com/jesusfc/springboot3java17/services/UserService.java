@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface UserService {
     List<UserEntity> getUserList();
     Optional<UserEntity> getUserByEmail(String email);
+    UserEntity saveUser(UserEntity userEntity);
 }

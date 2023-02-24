@@ -29,4 +29,10 @@ public class UserServiceImpl implements UserService {
     public Optional<UserEntity> getUserByEmail(String email) {
         return userRepository.findById(email);
     }
+
+    @Override
+    public UserEntity saveUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
+        return userEntity;
+    }
 }

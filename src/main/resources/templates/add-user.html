@@ -30,26 +30,26 @@
 </nav>
 <div class="container">
     <h1 class="text-secondary border border-success border-box-0" th:text="${titulo}"></h1>
-    <form th:action="@{/form}" th:object="${cliente}" method="post">
-        <table class="table table-striped">
+    <form th:action="@{/mvc/user/form}" th:object="${cliente}" method="post">
+        <table class="table table-bordered">
             <tr>
                 <td>Nombre:</td>
-                <td><input type="text" th:field="*{name}"/></td>
+                <td><input type="text" th:field="*{name}" class="form-control"/></td>
             </tr>
             <tr>
                 <td>Apellido:</td>
-                <td><input type="text" th:field="*{familyName}"></td>
+                <td><input type="text" th:field="*{familyName}" class="form-control"></td>
             </tr>
             <tr>
                 <td>Email:</td>
-                <td><input type="text" th:field="*{email}"></td>
+                <td><input type="text" th:field="*{email}" class="form-control"></td>
             </tr>
             <tr>
                 <td>Activo:</td>
                 <td><input type="checkbox" th:field="*{enabled}"></td>
             </tr>
             <tr>
-                <td><input type="submit"></td>
+                <td><input type="submit" class="btn btn-primary"></td>
             </tr>
         </table>
     </form>

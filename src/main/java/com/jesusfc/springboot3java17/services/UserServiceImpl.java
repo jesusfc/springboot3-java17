@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
@@ -19,6 +18,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserEntity> getUserList() {
         List<UserEntity> all = userRepository.findAll();
         if(CollectionUtils.isEmpty(all)) return List.of();
@@ -26,11 +26,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<UserEntity> getUserByEmail(String email) {
         return userRepository.findById(email);
     }
 
     @Override
+    @Transactional()
     public UserEntity saveUser(UserEntity userEntity) {
         userRepository.save(userEntity);
         return userEntity;

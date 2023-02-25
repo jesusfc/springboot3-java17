@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,8 +45,9 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("add-user-form")
+    @PostMapping("/form")
     public String saveUser(UserEntity userEntity){
+        userEntity.setCreateAt(LocalDateTime.now());
         userService.saveUser(userEntity);
         return "redirect:/mvc/user/list";
     }

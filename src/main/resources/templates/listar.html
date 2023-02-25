@@ -30,10 +30,8 @@
 </nav>
 
 <div class="container">
-
-
     <h1 class="text-secondary border border-success border-box-0" th:text="${titulo}"></h1>
-    <h5><a th:href="@{/mvc/user/form}">Añadir un cliente</a></h5>
+    <div th:align="right"><h5><a th:href="@{/mvc/user/form}">Añadir un cliente</a></h5></div>
     <div th:if="${usuarios.isEmpty()}">no hay usuarios en la lista!</div>
 
     <table class="table table-striped" th:if="${not usuarios.isEmpty()}">

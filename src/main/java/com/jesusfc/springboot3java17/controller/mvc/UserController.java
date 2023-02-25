@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping("/form")
     public ModelAndView addUser(ModelAndView modelAndView) {
         Map<String, Object> modelObj = new HashMap<>();
-        modelObj.put("user", new UserEntity());
+        modelObj.put("cliente", new UserEntity());
         modelObj.put("titulo", "Añadir nuevo usuario");
         modelAndView.addAllObjects(modelObj);
         modelAndView.setViewName("add-user");

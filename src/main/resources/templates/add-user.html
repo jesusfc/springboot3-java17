@@ -29,29 +29,26 @@
     </div>
 </nav>
 <div class="container">
-    <h1 class="text-secondary border border-success border-box-0" th:text="${titulo}"></h1>
+    <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h1>
     <form th:action="@{/mvc/user/form}" th:object="${cliente}" method="post">
-        <table class="table table-bordered">
-            <tr>
-                <td>Nombre:</td>
-                <td><input type="text" th:field="*{name}" class="form-control"/></td>
-            </tr>
-            <tr>
-                <td>Apellido:</td>
-                <td><input type="text" th:field="*{familyName}" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><input type="text" th:field="*{email}" class="form-control"></td>
-            </tr>
-            <tr>
-                <td>Activo:</td>
-                <td><input type="checkbox" th:field="*{enabled}"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" class="btn btn-primary"></td>
-            </tr>
-        </table>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nombre:</label>
+            <div class="col-sm-6"><input type="text" th:field="*{name}" class="form-control"/></div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Apellido:</label>
+            <div class="col-sm-6"><input type="text" th:field="*{familyName}" class="form-control"></div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
+            <div class="col-sm-6"><input type="text" th:field="*{email}" class="form-control"></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6"><label>Activo: <input type="checkbox" th:field="*{enabled}"></label></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6"><input type="submit" value="Crear Cliente" class="btn btn-primary"></div>
+        </div>
     </form>
 </div>
 </body>

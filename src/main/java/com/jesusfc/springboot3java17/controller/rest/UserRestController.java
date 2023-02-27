@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@Slf4j
 @RequestMapping("/rest/user")
 public class UserRestController {
 
@@ -28,12 +30,26 @@ public class UserRestController {
     private final LocaleResolver localeResolver;
     private final MessageSource messageSource;
 
+    @Operation(operationId = "logsTest")
+    @GetMapping("/logs-test")
+    public HttpStatus getLogsTest() {
+
+        log.trace("some trace logging...");
+        log.debug("some debug logging...");
+        log.info("some info logging...");
+        log.warn("some warn logging...");
+        log.error("some error logging...");
+
+        return HttpStatus.OK;
+    }
+
     @Operation(operationId = "userList")
     @GetMapping("/list")
     public ResponseEntity<UserEntityListRS> getUserList(Locale locale) {
         String message = messageSource.getMessage("app.name", null, locale);
-        System.out.println("message: " + message);
-        List<UserEntity> userList = userService.getUserList();
+        log.debug("message: " + message);
+        log.error("message: " + message);
+                List < UserEntity > userList = userService.getUserList();
         return new ResponseEntity<>(UserEntityListRS.userEntityListRS(userList), HttpStatus.OK);
     }
 

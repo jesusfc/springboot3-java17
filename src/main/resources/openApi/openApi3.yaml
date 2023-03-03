@@ -1,0 +1,292 @@
+openapi: 3.0.3
+info:
+  version: '1.0'
+  title: OpenApi Test
+  description: Start test Open Api from crash
+  termsOfService: www.jesusfc.com/openapi/terms
+  contact:
+    name: Jesus Fdez. Caraballo
+    url: http:/www.jesusfc.com
+    email: jfcaraballo@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'https://api.jesusfc.com'
+    description: Api Url server for production OpenApi
+  - url: 'https://dev-api.jesusfc.com'
+    description: Api Url server for testing OpenApi
+paths:
+  /v1/clientes/{customerId}:
+    get:
+      summary: Get a customer by Id
+      description: Get a single **Customer** by its Id value.
+      operationId: getCustomerById
+      tags:
+        - Customer
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      responses:
+        '200':
+          description: Get a custumer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Not Found
+    put:
+      summary: Update Customer
+      description: Update Customer by Id
+      operationId: updateCustomerById
+      tags:
+        - Customer
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '204':
+          description: Customer Updated
+    delete:
+      summary: Delete a customer by Id
+      description: Delete a single **Customer** by its Id value.
+      operationId: delCustomerById
+      tags:
+        - Customer
+      parameters:
+        - $ref: '#/components/parameters/CustomerIdPathParam'
+      responses:
+        '200':
+          description: Custumer delete
+        '404':
+          description: Not Found
+  /v1/clientes:
+    post:
+      summary: Create a new Customer
+      description: Create a new Customer
+      operationId: createCustomer
+      tags:
+        - Customer
+      requestBody:
+        description: Customer Object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Create a customer
+          headers:
+            Location:
+              description: Location of the created customer
+              schema:
+                type: string
+                format: uri
+                example: https://api.jesusfc.com/v1/clientes/{customerId}
+        '400':
+          description: Bad Request
+  /v1/clientes/list:
+    get:
+      tags:
+        - Customer
+      summary: Get a list
+      operationId: getCustomerList
+      description: Get a list of a **Customer list**
+      responses:
+        '200':
+          description: List of costumers
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 0
+                description: List of a customers
+                items:
+                  $ref: '#/components/schemas/CustomerList'
+        '404':
+          description: Not Found
+      security: []
+  /v1/clientes/pagelist:
+    get:
+      tags:
+        - Customer
+      summary: List of a Customer by pagination list
+      description: List of a Customer by pagination list with more info
+      operationId: getCustomerPageList
+      parameters:
+        - $ref: "#/components/parameters/PageNumberParam"
+        - $ref: "#/components/parameters/PageSizeParam"
+      responses:
+        '200':
+          description: List of costumers
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 0
+                description: List of a customers
+                items:
+                  $ref: '#/components/schemas/CustomerPageList'
+        '404':
+          description: Not Found
+security:
+  - BasicAuth: []
+  - JwtAutoToken: []
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    JwtAutoToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          example: 123 main
+        city:
+          type: string
+          example: St Pete
+        stateCode:
+          maxLength: 2
+          minLength: 2
+          type: string
+          description: 2 Letter State Code
+          enum:
+            - AL
+            - AK
+            - AZ
+            - AR
+            - CA
+        zipCode:
+          type: string
+          example: '33701'
+    Customer:
+      type: object
+      minItems: 1
+      maxItems: 1
+      description: A customer
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          minLength: 3
+          maxLength: 30
+          example: Jesus
+        familyName:
+          type: string
+          minLength: 3
+          maximum: 30
+          example: Fdez.
+        email:
+          type: string
+        enable:
+          type: boolean
+          default: false
+        createAt:
+          type: string
+          format: date
+        address:
+          $ref: '#/components/schemas/Address'
+    CustomerList:
+      type: array
+      minItems: 0
+      description: List of a customers
+      items:
+        $ref: '#/components/schemas/Customer'
+    CustomerPageList:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/CustomerList'
+      allOf:
+        - $ref: '#/components/schemas/PagedResponse'
+    PagedResponse:
+      type: object
+      properties:
+        pageable:
+          $ref: '#/components/schemas/PagedResponse_pageable'
+        totalPages:
+          type: integer
+          format: int32
+        last:
+          type: boolean
+        totalElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        first:
+          type: boolean
+    PagedResponse_pageable:
+      type: object
+      properties:
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        offset:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+    PagedResponse_pageable_sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+  parameters:
+    CustomerIdPathParam:
+      name: customerId
+      in: path
+      description: Customer Id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    PageNumberParam:
+      name: pageNumber
+      in: query
+      description: Page Number
+      schema:
+        type: integer
+        format: int32
+        default: 1
+    PageSizeParam:
+      name: pageSize
+      in: query
+      description: Page Size
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 25

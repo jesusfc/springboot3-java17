@@ -1,25 +1,38 @@
 package com.jesusfc.springboot3java17.controller.rest;
 
-
-import com.jesusfc.springboot3java17.openapi3.v1.api.V1Api;
+import com.jesusfc.springboot3java17.database.entity.UserEntity;
+import com.jesusfc.springboot3java17.model.httpRQRS.UserEntityListRS;
 import com.jesusfc.springboot3java17.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+
+/**
+ * @author jesusfc
+ * Created on mar 2023
+ */
 @RestController
 @AllArgsConstructor
 @Slf4j
 @RequestMapping("/rest/user")
-public class UserRestController implements V1Api {
+public class UserRestController {
 
     private final UserService userService;
     private final LocaleResolver localeResolver;
+
     private final MessageSource messageSource;
-/*
     @Operation(operationId = "logsTest")
     @GetMapping("/logs-test")
     public HttpStatus getLogsTest() {
@@ -39,7 +52,7 @@ public class UserRestController implements V1Api {
         String message = messageSource.getMessage("app.name", null, locale);
         log.debug("message: " + message);
         log.error("message: " + message);
-                List < UserEntity > userList = userService.getUserList();
+        List<UserEntity> userList = userService.getUserList();
         return new ResponseEntity<>(UserEntityListRS.userEntityListRS(userList), HttpStatus.OK);
     }
 
@@ -65,6 +78,4 @@ public class UserRestController implements V1Api {
         if (byEmail.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(byEmail.get(), HttpStatus.OK);
     }
-
- */
 }

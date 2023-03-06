@@ -17,86 +17,86 @@ servers:
   - url: 'https://dev-api.jesusfc.com'
     description: Api Url server for testing OpenApi
 paths:
-  /v1/clientes/{customerId}:
+  /v1/user/{userId}:
     get:
-      summary: Get a customer by Id
-      description: Get a single **Customer** by its Id value.
-      operationId: getCustomerById
+      summary: Get a user by Id
+      description: Get a single **User** by its Id value.
+      operationId: getUserById
       tags:
-        - Customer
+        - User
       parameters:
-        - $ref: '#/components/parameters/CustomerIdPathParam'
+        - $ref: '#/components/parameters/UserIdPathParam'
       responses:
         '200':
-          description: Get a custumer
+          description: Get a user
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
+                $ref: '#/components/schemas/User'
         '404':
           description: Not Found
     put:
-      summary: Update Customer
-      description: Update Customer by Id
-      operationId: updateCustomerById
+      summary: Update User
+      description: Update User by Id
+      operationId: updateUserById
       tags:
-        - Customer
+        - User
       parameters:
-        - $ref: '#/components/parameters/CustomerIdPathParam'
+        - $ref: '#/components/parameters/UserIdPathParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Customer'
+              $ref: '#/components/schemas/User'
       responses:
         '204':
-          description: Customer Updated
+          description: User Updated
     delete:
-      summary: Delete a customer by Id
-      description: Delete a single **Customer** by its Id value.
-      operationId: delCustomerById
+      summary: Delete a user by Id
+      description: Delete a single **User** by its Id value.
+      operationId: delUserById
       tags:
-        - Customer
+        - User
       parameters:
-        - $ref: '#/components/parameters/CustomerIdPathParam'
+        - $ref: '#/components/parameters/UserIdPathParam'
       responses:
         '200':
           description: Custumer delete
         '404':
           description: Not Found
-  /v1/clientes:
+  /v1/user:
     post:
-      summary: Create a new Customer
-      description: Create a new Customer
-      operationId: createCustomer
+      summary: Create a new User
+      description: Create a new User
+      operationId: createUser
       tags:
-        - Customer
+        - User
       requestBody:
-        description: Customer Object
+        description: User Object
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Customer'
+              $ref: '#/components/schemas/User'
       responses:
         '201':
-          description: Create a customer
+          description: Create a user
           headers:
             Location:
-              description: Location of the created customer
+              description: Location of the created user
               schema:
                 type: string
                 format: uri
-                example: https://api.jesusfc.com/v1/clientes/{customerId}
+                example: https://api.jesusfc.com/v1/user/{userId}
         '400':
           description: Bad Request
-  /v1/clientes/list:
+  /v1/user/list:
     get:
       tags:
-        - Customer
+        - User
       summary: Get a list
-      operationId: getCustomerList
-      description: Get a list of a **Customer list**
+      operationId: getUserList
+      description: Get a list of a **User list**
       responses:
         '200':
           description: List of costumers
@@ -105,19 +105,19 @@ paths:
               schema:
                 type: array
                 minItems: 0
-                description: List of a customers
+                description: List of a users
                 items:
-                  $ref: '#/components/schemas/CustomerList'
+                  $ref: '#/components/schemas/UserList'
         '404':
           description: Not Found
       security: []
-  /v1/clientes/pagelist:
+  /v1/user/pagelist:
     get:
       tags:
-        - Customer
-      summary: List of a Customer by pagination list
-      description: List of a Customer by pagination list with more info
-      operationId: getCustomerPageList
+        - User
+      summary: List of a User by pagination list
+      description: List of a User by pagination list with more info
+      operationId: getUserPageList
       parameters:
         - $ref: "#/components/parameters/PageNumberParam"
         - $ref: "#/components/parameters/PageSizeParam"
@@ -129,9 +129,9 @@ paths:
               schema:
                 type: array
                 minItems: 0
-                description: List of a customers
+                description: List of a users
                 items:
-                  $ref: '#/components/schemas/CustomerPageList'
+                  $ref: '#/components/schemas/UserPageList'
         '404':
           description: Not Found
 security:
@@ -170,11 +170,11 @@ components:
         zipCode:
           type: string
           example: '33701'
-    Customer:
+    User:
       type: object
       minItems: 1
       maxItems: 1
-      description: A customer
+      description: A user
       properties:
         id:
           type: string
@@ -200,17 +200,17 @@ components:
           format: date
         address:
           $ref: '#/components/schemas/Address'
-    CustomerList:
+    UserList:
       type: array
       minItems: 0
-      description: List of a customers
+      description: List of a users
       items:
-        $ref: '#/components/schemas/Customer'
-    CustomerPageList:
+        $ref: '#/components/schemas/User'
+    UserPageList:
       type: object
       properties:
         content:
-          $ref: '#/components/schemas/CustomerList'
+          $ref: '#/components/schemas/UserList'
       allOf:
         - $ref: '#/components/schemas/PagedResponse'
     PagedResponse:
@@ -265,10 +265,10 @@ components:
         unsorted:
           type: boolean
   parameters:
-    CustomerIdPathParam:
-      name: customerId
+    UserIdPathParam:
+      name: userId
       in: path
-      description: Customer Id
+      description: User Id
       required: true
       schema:
         type: string

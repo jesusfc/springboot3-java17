@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 @Schema(description = "A customer")
 @Validated
-public class Customer {
+public class User {
     @JsonProperty("id")
     private UUID id = null;
 
@@ -37,7 +37,7 @@ public class Customer {
     @JsonProperty("address")
     private Address address = null;
 
-    public Customer id(UUID id) {
+    public User id(UUID id) {
         this.id = id;
         return this;
     }
@@ -58,7 +58,7 @@ public class Customer {
         this.id = id;
     }
 
-    public Customer name(String name) {
+    public User name(String name) {
         this.name = name;
         return this;
     }
@@ -79,7 +79,7 @@ public class Customer {
         this.name = name;
     }
 
-    public Customer familyName(String familyName) {
+    public User familyName(String familyName) {
         this.familyName = familyName;
         return this;
     }
@@ -100,7 +100,7 @@ public class Customer {
         this.familyName = familyName;
     }
 
-    public Customer email(String email) {
+    public User email(String email) {
         this.email = email;
         return this;
     }
@@ -120,7 +120,7 @@ public class Customer {
         this.email = email;
     }
 
-    public Customer enable(Boolean enable) {
+    public User enable(Boolean enable) {
         this.enable = enable;
         return this;
     }
@@ -140,7 +140,7 @@ public class Customer {
         this.enable = enable;
     }
 
-    public Customer createAt(LocalDate createAt) {
+    public User createAt(LocalDate createAt) {
         this.createAt = createAt;
         return this;
     }
@@ -161,7 +161,7 @@ public class Customer {
         this.createAt = createAt;
     }
 
-    public Customer address(Address address) {
+    public User address(Address address) {
         this.address = address;
         return this;
     }
@@ -191,7 +191,7 @@ public class Customer {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Customer customer = (Customer) o;
+        User customer = (User) o;
         return Objects.equals(this.id, customer.id) &&
                 Objects.equals(this.name, customer.name) &&
                 Objects.equals(this.familyName, customer.familyName) &&

@@ -1,17 +1,40 @@
 package com.jesusfc.springboot3java17.openApi.v1.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * List of a customers
+ * CustomerPageList
  */
-@Schema(description = "List of a customers")
 @Validated
-public class CustomerList extends ArrayList<Customer>  {
+public class UserPageList extends PagedResponse  {
+  @JsonProperty("content")
+  private UserList content = null;
+
+  public UserPageList content(UserList content) {
+    this.content = content;
+    return this;
+  }
+
+  /**
+   * Get content
+   * @return content
+   **/
+  @Schema(description = "")
+  
+    @Valid
+    public UserList getContent() {
+    return content;
+  }
+
+  public void setContent(UserList content) {
+    this.content = content;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -21,19 +44,22 @@ public class CustomerList extends ArrayList<Customer>  {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return true;
+    UserPageList customerPageList = (UserPageList) o;
+    return Objects.equals(this.content, customerPageList.content) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash(content, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CustomerList {\n");
+    sb.append("class CustomerPageList {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("    content: ").append(toIndentedString(content)).append("\n");
     sb.append("}");
     return sb.toString();
   }

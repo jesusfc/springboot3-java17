@@ -8,16 +8,15 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * A customer
  */
-@Schema(description = "A customer")
+@Schema(description = "A user")
 @Validated
 public class User {
     @JsonProperty("id")
-    private UUID id = null;
+    private Long id = null;
 
     @JsonProperty("name")
     private String name = null;
@@ -37,7 +36,7 @@ public class User {
     @JsonProperty("address")
     private Address address = null;
 
-    public User id(UUID id) {
+    public User id(Long id) {
         this.id = id;
         return this;
     }
@@ -50,11 +49,11 @@ public class User {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY, description = "")
 
     @Valid
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

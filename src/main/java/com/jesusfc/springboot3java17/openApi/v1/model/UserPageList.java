@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,9 +14,9 @@ import java.util.Objects;
 @Validated
 public class UserPageList extends PagedResponse  {
   @JsonProperty("content")
-  private UserList content = null;
+  public List<User> content = null;
 
-  public UserPageList content(UserList content) {
+  public UserPageList content(List<User> content) {
     this.content = content;
     return this;
   }
@@ -27,11 +28,11 @@ public class UserPageList extends PagedResponse  {
   @Schema(description = "")
   
     @Valid
-    public UserList getContent() {
+    public List<User> getContent() {
     return content;
   }
 
-  public void setContent(UserList content) {
+  public void setContent(List<User> content) {
     this.content = content;
   }
 

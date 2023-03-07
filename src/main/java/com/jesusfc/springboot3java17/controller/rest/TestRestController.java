@@ -17,7 +17,6 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 /**
  * @author jesusfc
@@ -70,12 +69,12 @@ public class TestRestController {
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable(value = "email") String email) {
+    public ResponseEntity<UserEntity> getUserByEmail(@PathVariable(value = "email") String email) {
         Locale locale = LocaleContextHolder.getLocale();
         String message = messageSource.getMessage("app.name", null, locale);
         System.out.println("Lang: " + locale.getLanguage() + ", Message: " + message);
-        Optional<UserEntity> byEmail = userService.getUserByEmail(email);
-        if (byEmail.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(byEmail.get(), HttpStatus.OK);
+        UserEntity byEmail = userService.getUserByEmail(email);
+        if (byEmail == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(byEmail, HttpStatus.OK);
     }
 }

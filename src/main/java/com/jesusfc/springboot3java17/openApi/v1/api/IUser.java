@@ -5,7 +5,7 @@
  */
 package com.jesusfc.springboot3java17.openApi.v1.api;
 
-import com.jesusfc.springboot3java17.openApi.v1.model.UserList;
+import com.jesusfc.springboot3java17.openApi.v1.model.User;
 import com.jesusfc.springboot3java17.openApi.v1.model.UserPageList;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @Validated
@@ -30,7 +31,7 @@ public interface IUser {
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Create a user"),
             @ApiResponse(responseCode = "400", description = "Bad Request")})
     @RequestMapping(value = "/v1/user", consumes = {"application/json"}, method = RequestMethod.POST)
-    ResponseEntity<Void> createUser(@Parameter(in = ParameterIn.DEFAULT, description = "User Object", schema = @Schema()) @Valid @RequestBody IUser body);
+    ResponseEntity<Void> createUser(@Parameter(in = ParameterIn.DEFAULT, description = "User Object", schema = @Schema()) @Valid @RequestBody User body);
 
 
     @Operation(summary = "Delete a user by Id", description = "Delete a single **User** by its Id value.", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})
@@ -40,20 +41,45 @@ public interface IUser {
     ResponseEntity<Void> delUserById(@Parameter(in = ParameterIn.PATH, description = "User Id", required = true, schema = @Schema()) @PathVariable("userId") UUID userId);
 
 
-    @Operation(summary = "Get a user by Id", description = "Get a single **User** by its Id value.", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Get a custumer", content = @Content(mediaType = "application/json", schema = @Schema(implementation = IUser.class))),
-
-            @ApiResponse(responseCode = "404", description = "Not Found")})
-    @RequestMapping(value = "/v1/user/{userId}", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<IUser> getUserById(@Parameter(in = ParameterIn.PATH, description = "User Id", required = true, schema = @Schema()) @PathVariable("userId") UUID userId);
+    @Operation(
+            summary = "Get a user by email",
+            description = "Get a single **User** by its email value.",
+            security = {
+                    @SecurityRequirement(name = "BasicAuth"),
+                    @SecurityRequirement(name = "JwtAutoToken")
+                },
+            tags = {"User"}
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Get a custumer",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(
+                                                implementation = User.class
+                                        )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Not Found"
+                    )
+            }
+    )
+    @RequestMapping(value = "/v1/user/{email}", produces = {"application/json"}, method = RequestMethod.GET)
+    ResponseEntity<User> getUserByEmail(
+            @Parameter(in = ParameterIn.PATH, description = "User Email", required = true, schema = @Schema())
+            @PathVariable("email") String userId);
 
 
     @Operation(summary = "Get a list", description = "Get a list of a **User list**", tags = {"User"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of costumers", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserList.class)))),
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of costumers", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))),
 
             @ApiResponse(responseCode = "404", description = "Not Found")})
     @RequestMapping(value = "/v1/user/list", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<List<UserList>> getUserList();
+    ResponseEntity<List<User>> getUserList(Locale locale);
 
 
     @Operation(summary = "List of a User by pagination list", description = "List of a User by pagination list with more info", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})
@@ -67,7 +93,7 @@ public interface IUser {
     @Operation(summary = "Update User", description = "Update User by Id", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})
     @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "User Updated")})
     @RequestMapping(value = "/v1/user/{userId}", consumes = {"application/json"}, method = RequestMethod.PUT)
-    ResponseEntity<Void> updateUserById(@Parameter(in = ParameterIn.PATH, description = "User Id", required = true, schema = @Schema()) @PathVariable("userId") UUID userId, @Parameter(in = ParameterIn.DEFAULT, description = "", required = true, schema = @Schema()) @Valid @RequestBody IUser body);
+    ResponseEntity<Void> updateUserById(@Parameter(in = ParameterIn.PATH, description = "User Id", required = true, schema = @Schema()) @PathVariable("userId") UUID userId, @Parameter(in = ParameterIn.DEFAULT, description = "", required = true, schema = @Schema()) @Valid @RequestBody User body);
 
 }
 

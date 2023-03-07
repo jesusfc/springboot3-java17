@@ -17,7 +17,7 @@ import static com.jesusfc.springboot3java17.model.Constant.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "customer") // En plural, las tablas en plural
+@Entity(name = "users") // En plural, las tablas en plural
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

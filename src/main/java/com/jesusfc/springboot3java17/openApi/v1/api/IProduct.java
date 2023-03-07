@@ -1,7 +1,6 @@
 package com.jesusfc.springboot3java17.openApi.v1.api;
 
 import com.jesusfc.springboot3java17.openApi.v1.model.Product;
-import com.jesusfc.springboot3java17.openApi.v1.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,5 +39,5 @@ public interface IProduct {
                     @ApiResponse(responseCode = "404", description = "Not Found")}
     )
     @RequestMapping(value = "/v1/product/list", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<List<User>> getProductList(Locale locale);
+    ResponseEntity<List<Product>> getProductList(Locale locale);
 }

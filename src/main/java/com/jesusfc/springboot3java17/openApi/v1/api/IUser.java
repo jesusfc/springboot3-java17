@@ -38,7 +38,7 @@ public interface IUser {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Custumer delete"),
             @ApiResponse(responseCode = "404", description = "Not Found")})
     @RequestMapping(value = "/v1/user/{userId}", method = RequestMethod.DELETE)
-    ResponseEntity<Void> delUserById(@Parameter(in = ParameterIn.PATH, description = "User Id", required = true, schema = @Schema()) @PathVariable("userId") UUID userId);
+    ResponseEntity<Void> deleteUserById(@Parameter(in = ParameterIn.PATH, description = "User Id", required = true, schema = @Schema()) @PathVariable("userId") Long userId);
 
 
     @Operation(

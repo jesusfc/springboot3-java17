@@ -37,13 +37,15 @@ public class UserRestController implements IUser {
 
 
     @Override
-    public ResponseEntity<Void> createUser(User body) {
-        return null;
+    public ResponseEntity<Void> createUser(User user) {
+        userService.saveUser(new UserConverter().convertToUserEntity(user));
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<Void> delUserById(UUID userId) {
-        return null;
+    public ResponseEntity<Void> deleteUserById(Long userId) {
+        userService.deleteUserById(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.openApi.v1.model.User;
 import org.springframework.core.convert.converter.Converter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserConverter implements Converter<UserEntity, User> {
@@ -21,5 +22,14 @@ public class UserConverter implements Converter<UserEntity, User> {
     }
     public List<User> convertList(List<UserEntity> userEntityList) {
         return userEntityList.stream().map(this::convert).toList();
+    }
+    public UserEntity convertToUserEntity(User user) {
+        return UserEntity.builder()
+                .name(user.getName())
+                .familyName(user.getFamilyName())
+                .email(user.getEmail())
+                .enabled(user.isEnable())
+                .createAt(LocalDateTime.now())
+                .build();
     }
 }

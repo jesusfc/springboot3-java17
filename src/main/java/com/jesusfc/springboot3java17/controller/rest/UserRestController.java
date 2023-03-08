@@ -64,7 +64,9 @@ public class UserRestController implements IUser {
 
     @Override
     public ResponseEntity<List<UserPageList>> getUserPageList(Integer pageNumber, Integer pageSize) {
-        return null;
+        List<UserEntity> userPageList = userService.getUserPageList(pageNumber, pageSize);
+        new UserPageList().setContent(new UserConverter().convertList(userPageList));
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @Override

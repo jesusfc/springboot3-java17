@@ -11,4 +11,5 @@ public interface UserService {
     Optional<UserEntity> getUserById(Long id);
     UserEntity saveUser(UserEntity userEntity);
     void deleteUserById(long userId);
+    List<UserEntity> getUserPageList(int pageNumber, int pageSize);
 }

@@ -75,7 +75,7 @@ public interface IUser {
 
 
     @Operation(summary = "Get a list", description = "Get a list of a **User list**", tags = {"User"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of costumers", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))),
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of users", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))),
 
             @ApiResponse(responseCode = "404", description = "Not Found")})
     @RequestMapping(value = "/v1/user/list", produces = {"application/json"}, method = RequestMethod.GET)
@@ -83,11 +83,11 @@ public interface IUser {
 
 
     @Operation(summary = "List of a User by pagination list", description = "List of a User by pagination list with more info", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of costumers", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserPageList.class)))),
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "List of users", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserPageList.class))),
 
             @ApiResponse(responseCode = "404", description = "Not Found")})
     @RequestMapping(value = "/v1/user/pagelist", produces = {"application/json"}, method = RequestMethod.GET)
-    ResponseEntity<List<UserPageList>> getUserPageList(@Parameter(in = ParameterIn.QUERY, description = "Page Number", schema = @Schema(defaultValue = "1")) @Valid @RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber, @Parameter(in = ParameterIn.QUERY, description = "Page Size", schema = @Schema(defaultValue = "25")) @Valid @RequestParam(value = "pageSize", required = false, defaultValue = "25") Integer pageSize);
+    ResponseEntity<UserPageList> getUserPageList(@Parameter(in = ParameterIn.QUERY, description = "Page Number", schema = @Schema(defaultValue = "1")) @Valid @RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber, @Parameter(in = ParameterIn.QUERY, description = "Page Size", schema = @Schema(defaultValue = "25")) @Valid @RequestParam(value = "pageSize", required = false, defaultValue = "25") Integer pageSize);
 
 
     @Operation(summary = "Update User", description = "Update User by Id", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})

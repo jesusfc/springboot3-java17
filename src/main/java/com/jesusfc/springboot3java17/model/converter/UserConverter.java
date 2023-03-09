@@ -2,12 +2,11 @@ package com.jesusfc.springboot3java17.model.converter;
 
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.openApi.v1.model.User;
-import org.springframework.core.convert.converter.Converter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class UserConverter implements Converter<UserEntity, User> {
+public class UserConverter implements ConverterAll<UserEntity, User> {
 
     @Override
     public User convert(UserEntity userEntity) {
@@ -20,10 +19,14 @@ public class UserConverter implements Converter<UserEntity, User> {
         user.setCreateAt(userEntity.getCreateAt().toLocalDate());
         return user;
     }
+
+    @Override
     public List<User> convertList(List<UserEntity> userEntityList) {
         return userEntityList.stream().map(this::convert).toList();
     }
-    public UserEntity convertToUserEntity(User user) {
+
+    @Override
+    public UserEntity convertSource(User user) {
         return UserEntity.builder()
                 .name(user.getName())
                 .familyName(user.getFamilyName())
@@ -32,4 +35,9 @@ public class UserConverter implements Converter<UserEntity, User> {
                 .createAt(LocalDateTime.now())
                 .build();
     }
+    @Override
+    public List<UserEntity> convertSourceList(List<User> userList) {
+        return userList.stream().map(this::convertSource).toList();
+    }
+
 }

@@ -127,8 +127,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                minItems: 0
                 description: List of a users
                 items:
                   $ref: '#/components/schemas/UserPageList'

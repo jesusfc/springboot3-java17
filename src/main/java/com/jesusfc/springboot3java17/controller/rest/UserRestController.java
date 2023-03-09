@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class UserRestController implements IUser {
 
     @Override
     public ResponseEntity<Void> createUser(User user) {
-        userService.saveUser(new UserConverter().convertToUserEntity(user));
+        userService.saveUser(new UserConverter().convertSource(user));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -63,10 +64,17 @@ public class UserRestController implements IUser {
     }
 
     @Override
-    public ResponseEntity<List<UserPageList>> getUserPageList(Integer pageNumber, Integer pageSize) {
-        List<UserEntity> userPageList = userService.getUserPageList(pageNumber, pageSize);
-        new UserPageList().setContent(new UserConverter().convertList(userPageList));
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<UserPageList> getUserPageList(Integer pageNumber, Integer pageSize) {
+        Page<UserEntity> userEntityPageList = userService.getUserPageList(pageNumber - 1, pageSize);
+        if (userEntityPageList.getTotalElements() == 0) new ResponseEntity<>(HttpStatus.NO_CONTENT, HttpStatus.OK);
+        List<User> users = new UserConverter().convertList(userEntityPageList.getContent());
+        UserPageList userPageList = new UserPageList();
+        userPageList.setTotalElements((int) userEntityPageList.getTotalElements());
+        userPageList.setNumberOfElements(users.size());
+        userPageList.setContent(users);
+        int totalNumberPages = Math.round(userEntityPageList.getTotalElements() / pageSize);
+        userPageList.setTotalPages( totalNumberPages == 0 ? 1 : totalNumberPages);
+        return new ResponseEntity<>(userPageList, HttpStatus.OK);
     }
 
     @Override

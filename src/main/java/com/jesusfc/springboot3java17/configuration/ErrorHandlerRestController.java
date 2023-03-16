@@ -1,5 +1,6 @@
-package com.jesusfc.springboot3java17.exception;
+package com.jesusfc.springboot3java17.configuration;
 
+import com.jesusfc.springboot3java17.exception.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -7,10 +8,10 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -21,10 +22,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 @RestController
 @AllArgsConstructor
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class ErrorHandlerRestController extends ResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
 

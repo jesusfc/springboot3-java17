@@ -2,6 +2,7 @@ package com.jesusfc.springboot3java17.services;
 
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.database.repository.UserRepository;
+import com.jesusfc.springboot3java17.exception.UserException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,20 +25,21 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public List<UserEntity> getUserList() {
         List<UserEntity> all = userRepository.findAll();
-        if(CollectionUtils.isEmpty(all)) return List.of();
+        if (CollectionUtils.isEmpty(all)) return List.of();
         return all;
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserEntity getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        Optional<UserEntity> byEmail = userRepository.findByEmail(email);
+        return byEmail.orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<UserEntity> getUserById(Long id) {
-        return userRepository.findById(id);
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
     }
 
     @Override

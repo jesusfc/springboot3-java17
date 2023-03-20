@@ -35,19 +35,22 @@ class OpenApiConfig {
 
     @Bean
     public GroupedOpenApi publicApi() {
-        return GroupedOpenApi.builder()
-                .group("OpenApi-public")
-                .pathsToMatch("/rest/**")
-                .build();
+        return GroupedOpenApi.builder().group("1-OpenApi-public").pathsToMatch("/rest/v1/**").build();
     }
-    /*
+
     @Bean
-    public GroupedOpenApi adminApi() {
-        return GroupedOpenApi.builder()
-                .group("OpenApi-admin")
-                .pathsToMatch("/admin/**")
-                .addMethodFilter(method -> method.isAnnotationPresent(Admin.class))
-                .build();
+    GroupedOpenApi userApis() { // group all APIs with `user` in the path
+        return GroupedOpenApi.builder().group("2-User").pathsToMatch("/rest/v1/user/**").build();
     }
-    */
+
+    @Bean
+    GroupedOpenApi adminApis() { // group all APIs with `admin` in the path
+        return GroupedOpenApi.builder().group("3-Admin").pathsToMatch("/rest/v1/admin/**").build();
+    }
+
+    @Bean
+    GroupedOpenApi opsApis() { // group all APIs with `operation` in the path
+        return GroupedOpenApi.builder().group("4-Operation").pathsToMatch("/rest/v1/operation/**").build();
+    }
+
 }

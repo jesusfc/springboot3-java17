@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 @Validated
-public interface IUser {
+public interface IUserDocumentation {
     @Operation(summary = "Create a new User", description = "Create a new User", security = {@SecurityRequirement(name = "BasicAuth"), @SecurityRequirement(name = "JwtAutoToken")}, tags = {"User"})
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Create a user"),
             @ApiResponse(responseCode = "400", description = "Bad Request")})

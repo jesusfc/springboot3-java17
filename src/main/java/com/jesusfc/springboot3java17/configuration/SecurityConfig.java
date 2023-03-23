@@ -1,7 +1,8 @@
 package com.jesusfc.springboot3java17.configuration;
 
-import com.jesusfc.springboot3java17.security.JWTAuthenticationFilter;
-import com.jesusfc.springboot3java17.security.JWTAuthorizationFilter;
+import com.jesusfc.springboot3java17.controller.filter.TestFilter;
+import com.jesusfc.springboot3java17.security.filter.JWTAuthenticationFilter;
+import com.jesusfc.springboot3java17.security.filter.JWTAuthorizationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,16 +33,12 @@ public class SecurityConfig {
 
         return http
                 .csrf().disable()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic().disable()
+                .addFilterBefore(new TestFilter(), JWTAuthenticationFilter.class)
                 .addFilter(jwtAuthenticationFilter)
-                //.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
@@ -58,6 +55,7 @@ public class SecurityConfig {
         return inMemoryUserDetailsManager;
     }
     */
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

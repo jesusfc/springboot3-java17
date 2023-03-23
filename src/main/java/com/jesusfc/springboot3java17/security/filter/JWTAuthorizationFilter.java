@@ -1,5 +1,6 @@
-package com.jesusfc.springboot3java17.security;
+package com.jesusfc.springboot3java17.security.filter;
 
+import com.jesusfc.springboot3java17.security.TokenUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

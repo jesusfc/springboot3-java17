@@ -1,6 +1,9 @@
-package com.jesusfc.springboot3java17.security;
+package com.jesusfc.springboot3java17.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jesusfc.springboot3java17.security.AuthCredentials;
+import com.jesusfc.springboot3java17.security.TokenUtils;
+import com.jesusfc.springboot3java17.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,9 +23,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         AuthCredentials authCredentials = new AuthCredentials();
         try {
             authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
-        } catch (IOException e) {
-
-        }
+        } catch (IOException e) {}
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 authCredentials.getEmail(), authCredentials.getPassword(), Collections.emptyList()

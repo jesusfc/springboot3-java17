@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import static com.jesusfc.springboot3java17.model.Constant.*;
 
@@ -17,7 +18,8 @@ import static com.jesusfc.springboot3java17.model.Constant.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "users") // En plural, las tablas en plural
+@Table(name = "users") // En plural, las tablas en plural
+@Entity
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +40,14 @@ public class UserEntity implements Serializable {
     private String password;
     @Column(name = "enabled")
     private boolean enabled;
-
     @Column(name = "create_at")
     private LocalDateTime createAt;
+    @ManyToMany()
+    @JoinTable(
+            name = "users_video_clubs",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "club_id")
+    )
+    private Set<VideoClubEntity> videoClubs;
 
 }

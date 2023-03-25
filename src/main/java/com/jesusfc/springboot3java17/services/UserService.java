@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserService {
     List<UserEntity> getUserList();
+    UserEntity getUserLogin(String email, String clubCode);
     UserEntity getUserByEmail(String email);
     UserEntity getUserById(Long id);
     UserEntity saveUser(UserEntity userEntity);

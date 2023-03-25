@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity getUserLogin(String email, String clubCode) {
+        Optional<UserEntity> byEmail = userRepository.findUserForLogin(email, clubCode);
+        return byEmail.orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public UserEntity getUserByEmail(String email) {
         Optional<UserEntity> byEmail = userRepository.findByEmail(email);

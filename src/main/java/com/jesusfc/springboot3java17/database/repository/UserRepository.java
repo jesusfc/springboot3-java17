@@ -12,4 +12,11 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
     Optional<UserEntity> findByEmail(@Param("email") String email);
+
+    @Query(value = "SELECT usr.* FROM users usr, users_video_clubs uvc, video_clubs vic " +
+            "WHERE usr.email = :email " +
+            "and usr.id = uvc.user_id and uvc.club_id = vic.id " +
+            "and vic.code = :clubCode", nativeQuery = true)
+    Optional<UserEntity> findUserForLogin(@Param("email") String email, @Param("clubCode") String clubCode);
+
 }

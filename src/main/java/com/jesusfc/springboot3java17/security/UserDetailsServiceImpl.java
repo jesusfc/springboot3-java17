@@ -15,9 +15,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userByEmail = userService.getUserByEmail(email);
-        if(userByEmail == null) throw new UsernameNotFoundException("The user email " + email + " has not been found.");
+    public UserDetails loadUserByUsername(String email_and_club) throws UsernameNotFoundException {
+        String[] split = email_and_club.split("#");
+        UserEntity userByEmail = userService.getUserLogin(split[0], split[1]);
+        if(userByEmail == null) throw new UsernameNotFoundException("The user email " + split[0] + " has not been found.");
         return new UserDetailsImpl(userByEmail);
     }
 }

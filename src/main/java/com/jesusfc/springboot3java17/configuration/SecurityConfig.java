@@ -22,23 +22,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
-    private final JWTAuthorizationFilter jwtAuthorizationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 
-        JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter();
-        jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
-        jwtAuthenticationFilter.setFilterProcessesUrl("/rest/login");
-
         return http
                 .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .httpBasic().disable()
+                .authorizeHttpRequests().anyRequest().authenticated()
+                .and()
                 .addFilterBefore(new TestFilter(), JWTAuthenticationFilter.class)
-                .addFilter(jwtAuthenticationFilter)
+                .addFilter(new JWTAuthenticationFilter(authenticationManager))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager))
                 .build();
 
     }

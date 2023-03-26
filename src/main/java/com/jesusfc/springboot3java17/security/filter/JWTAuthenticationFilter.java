@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jesusfc.springboot3java17.security.AuthCredentials;
 import com.jesusfc.springboot3java17.security.TokenUtils;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -26,7 +27,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         AuthCredentials authCredentials = new AuthCredentials();
         try {
             authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            logger.error(e);
+        }
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 authCredentials.getEmail() + "#" + authCredentials.getClubCode(), authCredentials.getPassword(), Collections.emptyList()
@@ -39,7 +42,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
+                                            Authentication authResult) throws IOException {
 
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
         String token = TokenUtils.createToken(userDetails);
@@ -49,13 +52,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Add more info to the body
         Map<String, Object> body = new HashMap<>();
-        body.put("token", token);
+        body.put("token", "Bearer " + token);
         body.put("user", userDetails.getUsername());
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
         response.setStatus(HttpStatus.OK.value());
         response.setContentType("application/json");
 
-        super.successfulAuthentication(request, response, chain, authResult);
     }
 
 }

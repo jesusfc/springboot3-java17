@@ -5,8 +5,12 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 
 public class TokenUtils {
 
@@ -21,19 +25,23 @@ public class TokenUtils {
      */
     private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;
 
-    public static String createToken(String name, String email) {
+    public static String createToken(UserDetails userDetails) {
 
+        // Expiration Date
         long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1000; // in milliseconds
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
 
-        Map<String, Object> extra = new HashMap<>();
-        extra.put("name", name);
+        // Roles
+        Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
+        Claims claims = Jwts.claims();
+        claims.put("authorities", roles);
 
         return Jwts.builder()
-                .setSubject(email)
-                .setExpiration(expirationDate)
-                .addClaims(extra)
+                .setSubject(userDetails.getUsername())
                 .signWith(Keys.hmacShaKeyFor(ACCESS_TOKEN_SECRET.getBytes()))
+                .setIssuedAt(new Date())
+                .setExpiration(expirationDate)
+                .addClaims(claims)
                 .compact();
     }
 

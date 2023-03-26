@@ -1,9 +1,12 @@
 package com.jesusfc.springboot3java17.bootstrap;
 
+import com.jesusfc.springboot3java17.database.entity.RoleEntity;
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.database.entity.VideoClubEntity;
+import com.jesusfc.springboot3java17.database.repository.RoleRepository;
 import com.jesusfc.springboot3java17.database.repository.UserRepository;
 import com.jesusfc.springboot3java17.database.repository.VideoClubRepository;
+import com.jesusfc.springboot3java17.security.RolesEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,7 @@ public class BootstrapLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final VideoClubRepository videoClubRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public void run(String... args) {
@@ -67,7 +71,19 @@ public class BootstrapLoader implements CommandLineRunner {
                     .videoClubs(videoClubEntities2)
                     .build());
             userRepository.saveAll(userEntities);
-        }
 
+            roleRepository.save(new RoleEntity().builder()
+                    .userId(userRepository.findByEmail("jfcaraballo@gmail.com").get().getId())
+                    .roles(RolesEnum.USER_ROLE)
+                    .build());
+            roleRepository.save(new RoleEntity().builder()
+                    .userId(userRepository.findByEmail("jfcaraballo@gmail.com").get().getId())
+                    .roles(RolesEnum.ADMIN_ROLE)
+                    .build());
+            roleRepository.save(new RoleEntity().builder()
+                    .userId(userRepository.findByEmail("jesus.fdez.caraballo@gmail.com").get().getId())
+                    .roles(RolesEnum.USER_ROLE)
+                    .build());
+        }
     }
 }

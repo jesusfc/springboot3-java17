@@ -48,6 +48,12 @@ public class UserEntity implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "club_id")
     )
+    @ToString.Exclude
     private Set<VideoClubEntity> videoClubs;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private Set<RoleEntity> roles;
 
 }

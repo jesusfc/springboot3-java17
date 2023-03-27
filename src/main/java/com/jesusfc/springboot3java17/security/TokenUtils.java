@@ -1,5 +1,7 @@
 package com.jesusfc.springboot3java17.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -34,7 +36,11 @@ public class TokenUtils {
         // Roles
         Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
         Claims claims = Jwts.claims();
-        claims.put("authorities", roles);
+        try {
+            claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())

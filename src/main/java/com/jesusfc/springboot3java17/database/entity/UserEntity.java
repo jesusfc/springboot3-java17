@@ -51,9 +51,8 @@ public class UserEntity implements Serializable {
     @ToString.Exclude
     private Set<VideoClubEntity> videoClubs;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    @ToString.Exclude
     private Set<RoleEntity> roles;
 
 }

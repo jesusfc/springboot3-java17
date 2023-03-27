@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,9 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                authCredentials.getEmail() + "#" + authCredentials.getClubCode(), authCredentials.getPassword(), Collections.emptyList()
-        );
-
+                authCredentials.getEmail() + "#" + authCredentials.getClubCode(), authCredentials.getPassword());
         return getAuthenticationManager().authenticate(usernamePasswordAuthenticationToken);
     }
 
@@ -56,10 +53,15 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // Add Token to the header
         response.addHeader("Authorization", "Bearer " + token);
 
+        Map<String, Object> user = new HashMap<>();
+        user.put("enabled", userDetails.isEnabled());
+        user.put("authorities", userDetails.getAuthorities());
+        user.put("username", userDetails.getUsername());
+
         // Add more info to the body
         Map<String, Object> body = new HashMap<>();
         body.put("token", "Bearer " + token);
-        body.put("user", userDetails.getUsername());
+        body.put("user", user);
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
         response.setStatus(HttpStatus.OK.value());
         response.setContentType("application/json");

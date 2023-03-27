@@ -16,6 +16,8 @@ public class RoleAuthority implements GrantedAuthority {
     }
     @Override
     public String getAuthority() {
-        return roles.stream().map(RoleEntity::getRoles).toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        roles.forEach(roleEntity -> stringBuilder.append(roleEntity));
+        return stringBuilder.toString();
     }
 }

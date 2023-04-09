@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
@@ -22,7 +23,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<UserEntity> getUserList() {
         List<UserEntity> all = userRepository.findAll();
         if (CollectionUtils.isEmpty(all)) return List.of();
@@ -30,27 +30,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserEntity getUserLogin(String email, String clubCode) {
         Optional<UserEntity> byEmail = userRepository.findUserForLogin(email, clubCode);
-        return byEmail.orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
+        UserEntity userEntity = byEmail.orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
+        return userEntity.clone();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserEntity getUserByEmail(String email) {
         Optional<UserEntity> byEmail = userRepository.findByEmail(email);
         return byEmail.orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public UserEntity getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserException("Usuario NO encontrado!!!"));
     }
 
     @Override
-    @Transactional()
     public UserEntity saveUser(UserEntity userEntity) {
         userRepository.save(userEntity);
         return userEntity;

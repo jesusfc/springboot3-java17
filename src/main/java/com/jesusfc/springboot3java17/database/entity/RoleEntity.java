@@ -19,7 +19,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "user_roles")
-public class RoleEntity {
+public class RoleEntity implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -43,5 +43,14 @@ public class RoleEntity {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public RoleEntity clone() {
+        try {
+            return (RoleEntity) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

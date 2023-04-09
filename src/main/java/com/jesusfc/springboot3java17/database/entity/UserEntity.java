@@ -9,6 +9,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.jesusfc.springboot3java17.model.Constant.*;
 
@@ -20,7 +21,7 @@ import static com.jesusfc.springboot3java17.model.Constant.*;
 @Builder
 @Table(name = "users") // En plural, las tablas en plural
 @Entity
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,7 +43,8 @@ public class UserEntity implements Serializable {
     private boolean enabled;
     @Column(name = "create_at")
     private LocalDateTime createAt;
-    @ManyToMany()
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_video_clubs",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -51,8 +53,19 @@ public class UserEntity implements Serializable {
     @ToString.Exclude
     private Set<VideoClubEntity> videoClubs;
 
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Set<RoleEntity> roles;
 
+    @Override
+    public UserEntity clone() {
+        try {
+            UserEntity clone = (UserEntity) super.clone();
+            clone.setRoles(clone.getRoles().stream().map(RoleEntity::clone).collect(Collectors.toSet()));
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

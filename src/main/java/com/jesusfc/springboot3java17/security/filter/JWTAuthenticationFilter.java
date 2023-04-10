@@ -2,7 +2,8 @@ package com.jesusfc.springboot3java17.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jesusfc.springboot3java17.security.AuthCredentials;
-import com.jesusfc.springboot3java17.security.TokenUtils;
+import com.jesusfc.springboot3java17.security.JWTService;
+import com.jesusfc.springboot3java17.security.JWTServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,7 +22,10 @@ import java.util.Map;
 
 @Slf4j
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+
+    private final JWTService jwtService;
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTService jwtService) {
+        this.jwtService = jwtService;
         this.setAuthenticationManager(authenticationManager);
         this.setFilterProcessesUrl("/rest/login");
     }
@@ -47,11 +51,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication authResult) throws IOException {
 
-        UserDetails userDetails = (UserDetails) authResult.getPrincipal();
-        String token = TokenUtils.createToken(userDetails);
-
         // Add Token to the header
-        response.addHeader("Authorization", "Bearer " + token);
+        String token = jwtService.createToken(authResult);
+        response.addHeader(JWTServiceImpl.HEADER_STRING, JWTServiceImpl.TOKEN_PREFIX + token);
+
+        UserDetails userDetails = (UserDetails) authResult.getPrincipal();
 
         Map<String, Object> user = new HashMap<>();
         user.put("enabled", userDetails.isEnabled());
@@ -60,12 +64,25 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // Add more info to the body
         Map<String, Object> body = new HashMap<>();
-        body.put("token", "Bearer " + token);
+        body.put("token", token);
         body.put("user", user);
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
         response.setStatus(HttpStatus.OK.value());
         response.setContentType("application/json");
 
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException {
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("mensaje", "Error de autenticación: username o password incorrecto!");
+        body.put("error", failed.getMessage());
+
+        response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+        response.setStatus(401);
+        response.setContentType("application/json");
     }
 
 }

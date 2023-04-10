@@ -13,6 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,7 @@ public class UserRestController implements IUserDocumentation {
         return new ResponseEntity<>(new UserConverter().convert(userService.getUserByEmail(email)), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public ResponseEntity<List<User>> getUserList(Locale locale) {
         String message = messageSource.getMessage("app.name", null, locale);

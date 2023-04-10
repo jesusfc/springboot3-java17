@@ -74,15 +74,15 @@ public class BootstrapLoader implements CommandLineRunner {
 
             roleRepository.save(new RoleEntity().builder()
                     .userId(userRepository.findByEmail("jfcaraballo@gmail.com").get().getId())
-                    .roles(RolesEnum.USER_ROLE)
+                    .roles(RolesEnum.ROLE_USER)
                     .build());
             roleRepository.save(new RoleEntity().builder()
                     .userId(userRepository.findByEmail("jfcaraballo@gmail.com").get().getId())
-                    .roles(RolesEnum.ADMIN_ROLE)
+                    .roles(RolesEnum.ROLE_ADMIN)
                     .build());
             roleRepository.save(new RoleEntity().builder()
                     .userId(userRepository.findByEmail("jesus.fdez.caraballo@gmail.com").get().getId())
-                    .roles(RolesEnum.USER_ROLE)
+                    .roles(RolesEnum.ROLE_USER)
                     .build());
         }
     }

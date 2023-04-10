@@ -17,7 +17,7 @@ import java.util.Set;
 @Builder
 @Table(name = "video_clubs")
 @Entity
-public class VideoClubEntity {
+public class VideoClubEntity implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -32,8 +32,13 @@ public class VideoClubEntity {
     @Column(name = "description")
     @Size(max = 150)
     private String description;
-    @ManyToMany(mappedBy = "videoClubs")
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_video_clubs",
+            joinColumns = @JoinColumn(name = "club_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<UserEntity> userEntities;
+
 
     @Override
     public boolean equals(Object o) {
@@ -46,5 +51,15 @@ public class VideoClubEntity {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public VideoClubEntity clone() {
+        try {
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return (VideoClubEntity) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

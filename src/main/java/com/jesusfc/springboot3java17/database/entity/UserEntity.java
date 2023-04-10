@@ -44,13 +44,13 @@ public class UserEntity implements Serializable, Cloneable {
     @Column(name = "create_at")
     private LocalDateTime createAt;
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_video_clubs",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "club_id")
     )
-    @ToString.Exclude
     private Set<VideoClubEntity> videoClubs;
 
     @ToString.Exclude
@@ -62,6 +62,7 @@ public class UserEntity implements Serializable, Cloneable {
     public UserEntity clone() {
         try {
             UserEntity clone = (UserEntity) super.clone();
+            clone.setVideoClubs(clone.getVideoClubs().stream().map(VideoClubEntity::clone).collect(Collectors.toSet()));
             clone.setRoles(clone.getRoles().stream().map(RoleEntity::clone).collect(Collectors.toSet()));
             return clone;
         } catch (CloneNotSupportedException e) {

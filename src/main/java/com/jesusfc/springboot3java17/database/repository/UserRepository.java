@@ -15,7 +15,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
     Optional<UserEntity> findByEmail(@Param("email") String email);
 
-
     @Query(value = "SELECT usr.*, GROUP_CONCAT(urr.role) as roles " +
             "FROM users usr LEFT JOIN user_roles urr ON usr.id = urr.user_id, " +
             "users_video_clubs uvc, video_clubs vic " +

@@ -13,21 +13,8 @@ import java.util.stream.Collectors;
 public class RoleAuthority implements GrantedAuthority {
     Set<RoleEntity> roles;
 
-    public RoleAuthority(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public String getAuthority() {
         return roles.stream().map(role -> role.getRoles().toString()).collect(Collectors.joining(","));
-
-        /*
-        StringBuilder stringBuilder = new StringBuilder();
-        roles.forEach(roleEntity -> {
-            stringBuilder.append(roleEntity.getRoles());
-        });
-        return stringBuilder.toString();
-
-         */
     }
 }

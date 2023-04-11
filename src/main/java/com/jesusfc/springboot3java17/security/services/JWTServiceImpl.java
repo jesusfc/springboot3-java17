@@ -1,7 +1,8 @@
-package com.jesusfc.springboot3java17.security;
+package com.jesusfc.springboot3java17.security.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jesusfc.springboot3java17.security.SimpleGrantedAuthorityMixin;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

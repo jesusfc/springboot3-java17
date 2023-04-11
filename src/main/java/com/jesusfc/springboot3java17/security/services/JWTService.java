@@ -1,4 +1,4 @@
-package com.jesusfc.springboot3java17.security;
+package com.jesusfc.springboot3java17.security.services;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.Authentication;

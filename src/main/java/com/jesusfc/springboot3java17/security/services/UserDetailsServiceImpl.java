@@ -1,4 +1,4 @@
-package com.jesusfc.springboot3java17.security;
+package com.jesusfc.springboot3java17.security.services;
 
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.services.UserService;

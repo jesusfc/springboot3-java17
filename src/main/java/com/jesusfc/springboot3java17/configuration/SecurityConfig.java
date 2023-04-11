@@ -1,9 +1,9 @@
 package com.jesusfc.springboot3java17.configuration;
 
 import com.jesusfc.springboot3java17.controller.filter.TestFilter;
-import com.jesusfc.springboot3java17.security.JWTService;
 import com.jesusfc.springboot3java17.security.filter.JWTAuthenticationFilter;
 import com.jesusfc.springboot3java17.security.filter.JWTAuthorizationFilter;
+import com.jesusfc.springboot3java17.security.services.JWTService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -2,8 +2,8 @@ package com.jesusfc.springboot3java17.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jesusfc.springboot3java17.security.AuthCredentials;
-import com.jesusfc.springboot3java17.security.JWTService;
-import com.jesusfc.springboot3java17.security.JWTServiceImpl;
+import com.jesusfc.springboot3java17.security.services.JWTService;
+import com.jesusfc.springboot3java17.security.services.JWTServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

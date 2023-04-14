@@ -17,6 +17,7 @@ public class UserConverter implements ConverterAll<UserEntity, User> {
         user.setEmail(userEntity.getEmail());
         user.setEnable(userEntity.isEnabled());
         user.setCreateAt(userEntity.getCreateAt().toLocalDate());
+        user.setVideoClub(new VideoClubConverter().convertList(userEntity.getVideoClubs()));
         return user;
     }
 

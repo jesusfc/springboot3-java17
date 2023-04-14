@@ -6,8 +6,8 @@ import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.NaturalId;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -37,7 +37,7 @@ public class VideoClubEntity implements Cloneable {
     @JoinTable(name = "users_video_clubs",
             joinColumns = @JoinColumn(name = "club_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<UserEntity> userEntities;
+    private List<UserEntity> userEntities;
 
 
     @Override

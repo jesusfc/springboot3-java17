@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 @AllArgsConstructor
@@ -46,7 +44,7 @@ public class BootstrapLoader implements CommandLineRunner {
             videoClubRepository.saveAll(videoClubEntityList);
         }
         if (userRepository.count() == 0) {
-            Set<VideoClubEntity> videoClubEntities1 = new HashSet<>();
+            List<VideoClubEntity> videoClubEntities1 = new ArrayList<>();
             videoClubEntities1.add(videoClubRepository.findByCode("ALC").get());
             videoClubEntities1.add(videoClubRepository.findByCode("ALP").get());
             List<UserEntity> userEntities = new ArrayList<>();
@@ -59,7 +57,7 @@ public class BootstrapLoader implements CommandLineRunner {
                     .createAt(LocalDateTime.now())
                     .password("$2a$10$giokU5/.OtZE/G5y.1z4FOab7kmAoL2c0L/RCYok4r.xmL129GpgS").build());
 
-            Set<VideoClubEntity> videoClubEntities2 = new HashSet<>();
+            List<VideoClubEntity> videoClubEntities2 = new ArrayList<>();
             videoClubEntities2.add(videoClubRepository.findByCode("ALC").get());
             userEntities.add(UserEntity.builder()
                     .email("jesus.fdez.caraballo@gmail.com")

@@ -8,7 +8,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.jesusfc.springboot3java17.model.Constant.*;
@@ -51,19 +51,19 @@ public class UserEntity implements Serializable, Cloneable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "club_id")
     )
-    private Set<VideoClubEntity> videoClubs;
+    private List<VideoClubEntity> videoClubs;
 
     @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Set<RoleEntity> roles;
+    private List<RoleEntity> roles;
 
     @Override
     public UserEntity clone() {
         try {
             UserEntity clone = (UserEntity) super.clone();
-            clone.setVideoClubs(clone.getVideoClubs().stream().map(VideoClubEntity::clone).collect(Collectors.toSet()));
-            clone.setRoles(clone.getRoles().stream().map(RoleEntity::clone).collect(Collectors.toSet()));
+            clone.setVideoClubs(clone.getVideoClubs().stream().map(VideoClubEntity::clone).collect(Collectors.toList()));
+            clone.setRoles(clone.getRoles().stream().map(RoleEntity::clone).collect(Collectors.toList()));
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

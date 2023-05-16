@@ -43,4 +43,10 @@ public final class Constant {
     public static final String EMAIL_PATTERN_ERROR = "err.user.pattern.email";
     public static final String USERNAME_EMAIL_PATTERN_ERROR = "err.user.pattern.username.email";
     public static final String PASSWORD_PATTERN_ERROR = "err.user.pattern.password";
+
+    public static final int FILM_CODE_MIN_CHAR = 5;
+    public static final int FILM_CODE_MAX_CHAR = 5;
+    public static final int FILM_TITLE_MIN_CHAR = 5;
+    public static final int FILM_TITLE_MAX_CHAR = 80;
+    public static final String FILM_TITLE_CHAR_LENGTH = "err.film.title.length";
 }

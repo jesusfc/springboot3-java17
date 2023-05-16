@@ -56,18 +56,23 @@ public class UserRestController implements IUserDocumentation {
         List<UserEntity> userList = userService.getUserList();
         return new ResponseEntity<>(new UserConverter().convertList(userList), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public ResponseEntity<UserPageList> getUserPageList(Integer pageNumber, Integer pageSize) {
+
         Page<UserEntity> userEntityPageList = userService.getUserPageList(pageNumber - 1, pageSize);
         if (userEntityPageList.getTotalElements() == 0) new ResponseEntity<>(HttpStatus.NO_CONTENT, HttpStatus.OK);
+
         List<User> users = new UserConverter().convertList(userEntityPageList.getContent());
+
         UserPageList userPageList = new UserPageList();
         userPageList.setTotalElements((int) userEntityPageList.getTotalElements());
         userPageList.setNumberOfElements(users.size());
         userPageList.setContent(users);
-        int totalNumberPages = Math.round(userEntityPageList.getTotalElements() / pageSize);
+
+        int totalNumberPages = Math.round((float) userEntityPageList.getTotalElements() / pageSize);
         userPageList.setTotalPages(totalNumberPages == 0 ? 1 : totalNumberPages);
+
         return new ResponseEntity<>(userPageList, HttpStatus.OK);
     }
 

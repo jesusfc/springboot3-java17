@@ -22,8 +22,10 @@ import static com.jesusfc.springboot3java17.model.Constant.*;
 @Table(name = "users") // En plural, las tablas en plural
 @Entity
 public class UserEntity implements Serializable, Cloneable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false, length = 15)
@@ -57,6 +59,12 @@ public class UserEntity implements Serializable, Cloneable {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<RoleEntity> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_films_rented",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
+    private List<FilmEntity> filmRented;
 
     @Override
     public UserEntity clone() {

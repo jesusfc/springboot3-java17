@@ -45,8 +45,9 @@ public final class Constant {
     public static final String PASSWORD_PATTERN_ERROR = "err.user.pattern.password";
 
     public static final int FILM_CODE_MIN_CHAR = 5;
-    public static final int FILM_CODE_MAX_CHAR = 5;
+    public static final int FILM_CODE_MAX_CHAR = 15;
     public static final int FILM_TITLE_MIN_CHAR = 5;
     public static final int FILM_TITLE_MAX_CHAR = 80;
     public static final String FILM_TITLE_CHAR_LENGTH = "err.film.title.length";
+    public static final String FILM_CODE_CHAR_LENGTH = "err.film.code.length";
 }

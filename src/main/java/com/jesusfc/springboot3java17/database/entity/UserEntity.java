@@ -60,11 +60,13 @@ public class UserEntity implements Serializable, Cloneable {
     @JoinColumn(name = "user_id")
     private List<RoleEntity> roles;
 
+    /*
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_films_rented",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<FilmEntity> filmRented;
+*/
 
     @Override
     public UserEntity clone() {

@@ -1,11 +1,7 @@
 package com.jesusfc.springboot3java17.bootstrap;
 
-import com.jesusfc.springboot3java17.database.entity.RoleEntity;
-import com.jesusfc.springboot3java17.database.entity.UserEntity;
-import com.jesusfc.springboot3java17.database.entity.VideoClubEntity;
-import com.jesusfc.springboot3java17.database.repository.RoleRepository;
-import com.jesusfc.springboot3java17.database.repository.UserRepository;
-import com.jesusfc.springboot3java17.database.repository.VideoClubRepository;
+import com.jesusfc.springboot3java17.database.entity.*;
+import com.jesusfc.springboot3java17.database.repository.*;
 import com.jesusfc.springboot3java17.security.RolesEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +18,8 @@ public class BootstrapLoader implements CommandLineRunner {
     private final UserRepository userRepository;
     private final VideoClubRepository videoClubRepository;
     private final RoleRepository roleRepository;
+    private final FilmRepository filmRepository;
+    private final UserFilmRentedRepository userFilmRentedRepository;
 
     @Override
     public void run(String... args) {
@@ -83,5 +81,40 @@ public class BootstrapLoader implements CommandLineRunner {
                     .roles(RolesEnum.ROLE_USER)
                     .build());
         }
+        if (filmRepository.count() == 0) {
+            filmRepository.save(FilmEntity.builder()
+                    .title("Capitan America")
+                    .filmCode("CAP_AMER")
+                    .videoClub(videoClubRepository.findByCode("ALC").get())
+                    .build());
+            filmRepository.save(FilmEntity.builder()
+                    .title("Infinity")
+                    .filmCode("INFINITY")
+                    .videoClub(videoClubRepository.findByCode("ALC").get())
+                    .build());
+            filmRepository.save(FilmEntity.builder()
+                    .title("Capitan America")
+                    .filmCode("CAP_AMER")
+                    .videoClub(videoClubRepository.findByCode("ALP").get())
+                    .build());
+            filmRepository.save(FilmEntity.builder()
+                    .title("Star Wars")
+                    .filmCode("STAR_WARS")
+                    .videoClub(videoClubRepository.findByCode("ALP").get())
+                    .build());
+        }
+        if (userFilmRentedRepository.count() == 0) {
+            userFilmRentedRepository.save(UserFilmRentedEntity.builder()
+                    .user(userRepository.findByEmail("jfcaraballo@gmail.com").get())
+                    .film(filmRepository.findById(1L).get())
+                    .rentedOn(LocalDateTime.now())
+                    .build());
+            userFilmRentedRepository.save(UserFilmRentedEntity.builder()
+                    .user(userRepository.findByEmail("jfcaraballo@gmail.com").get())
+                    .film(filmRepository.findById(2L).get())
+                    .rentedOn(LocalDateTime.now())
+                    .build());
+        }
+
     }
 }

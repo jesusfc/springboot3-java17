@@ -14,4 +14,5 @@ public class Product {
     private List<String> collections;
     private List<String> categories;
     private String thumbnailDiv;
+    private String thumbnail_b64;
 }

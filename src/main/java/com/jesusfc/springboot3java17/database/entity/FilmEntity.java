@@ -26,7 +26,7 @@ public class FilmEntity implements Serializable, Cloneable {
     @Size(min = FILM_CODE_MIN_CHAR, max = FILM_CODE_MAX_CHAR, message = FILM_CODE_CHAR_LENGTH)
     private String filmCode;
 
-    @Size(min = FILM_TITLE_MIN_CHAR, max = FILM_TITLE_MAX_CHAR, message = FILM_TITLE_CHAR_LENGTH)
+    @Size(min = GENERAL_TITLE_MIN_CHAR, max = GENERAL_TITLE_MAX_CHAR, message = GENERAL_TITLE_CHAR_LENGTH)
     private String title;
 
     @OneToOne

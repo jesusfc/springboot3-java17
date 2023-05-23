@@ -20,6 +20,8 @@ public class BootstrapLoader implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final FilmRepository filmRepository;
     private final UserFilmRentedRepository userFilmRentedRepository;
+    private final CollectionRepository collectionRepository;
+    private final CollectionFilmRepository collectionFilmRepository;
 
     @Override
     public void run(String... args) {
@@ -115,6 +117,24 @@ public class BootstrapLoader implements CommandLineRunner {
                     .rentedOn(LocalDateTime.now())
                     .build());
         }
+        if (collectionRepository.count() == 0) {
+            filmRepository.getReferenceById(1L);
+            collectionRepository.save(CollectionEntity.builder().title("Aventuras").build());
+            collectionRepository.save(CollectionEntity.builder().title("Acción").build());
+        }
 
+        if (collectionFilmRepository.count() == 0) {
+
+            collectionFilmRepository.save(CollectionFilmEntity.builder()
+                    .id(CollectionFilmKey.builder().collectionId(1L).filmId(1L).build())
+                    .collection(collectionRepository.getReferenceById(1L))
+                    .film(filmRepository.getReferenceById(1L))
+                    .idx(1L).build());
+            collectionFilmRepository.save(CollectionFilmEntity.builder()
+                    .id(CollectionFilmKey.builder().collectionId(1L).filmId(2L).build())
+                    .collection(collectionRepository.getReferenceById(1L))
+                    .film(filmRepository.getReferenceById(2L))
+                    .idx(2L).build());
+        }
     }
 }

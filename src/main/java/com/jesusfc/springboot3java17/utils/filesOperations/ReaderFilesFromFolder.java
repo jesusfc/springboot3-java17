@@ -35,7 +35,7 @@ public class ReaderFilesFromFolder {
 
     public static void main(String[] args) throws IOException {
 
-        createInsertProducts();
+       // createInsertProducts();
         //loadSimpleProductList();
         //loadCollectionProductList();
     }

@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -35,57 +34,42 @@ public class ReaderFilesFromFolder {
 
     public static void main(String[] args) throws IOException {
 
-       // createInsertProducts();
+        createInsertForTrainers();
         //loadSimpleProductList();
         //loadCollectionProductList();
     }
 
-    private static void createInsertProducts() {
-        String vimeo_categoria = "ZUMBA® y Baile deportivo";
-        Map<String, List<Product>> productsByCollection = getProductsByCollectionListMap();
-        List<Product> productsByCurrentCollections = productsByCollection.get(vimeo_categoria);
-        // System.out.println(productsByCurrentCollections.get(0));
-        Product product = productsByCurrentCollections.get(0);
+    private static void createInsertForTrainers() {
 
-        String QUERY = "select id, code, title from product where code = 'V1234'";
-        String INSERT_QUERY = "insert into image (data) values ('IMAGE_VALUE')";
-        String SQL_INSERT_QUERY = INSERT_QUERY.replace("IMAGE_VALUE", product.getThumbnail_b64());
-        System.out.println(SQL_INSERT_QUERY);
+        /*
+        219,MARÍATOSH
+        220,FRANCO VALICENTI
+        221,ANDRÉS BRAGANZA
+        222,ALBA TRIÑANES
+        223,LAURA LAKSHMI
+        224,CLARA ROSELL
+        */
 
-        // Open a connection
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(QUERY);
-        ) {
+        String trainerId = "219";
+        String trainerName = "MARIATOSH";
 
-
-            // Extract data from result set
-            while (rs.next()) {
-                // Retrieve by column name
-                System.out.print("ID: " + rs.getInt("id"));
-                System.out.print(", CODE: " + rs.getString("code"));
-                System.out.print(", TITLE: " + rs.getString("title"));
+        List<Product> productList = loadProductList();
+        productList.forEach(product -> {
+            String INSERT_QUERY = "insert into trainer_product (fk_trainer, fk_product) values (#TRAINER_ID#, #PRODUCT_ID#);";
+            if (product.getTitle().toLowerCase().contains(trainerName.toLowerCase())){
+                Integer productId = product.getProductId();
+                System.out.println(productId);
+                String insert = INSERT_QUERY.replace("#TRAINER_ID#", trainerId).replace("#PRODUCT_ID#", "XXXX");
+                System.out.println(insert);
             }
+        });
+        //System.out.println(productList.get(0));
 
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
 
-/*
-
-       String insertSql = "insert into product (code, title, subtitle, description, duration, completed_time, fk_video, fk_trailer,\n" +
-                "                                 premiere, premiere_end_date, published, publication_date, publication_end_date,\n" +
-                "                                 fk_image, fk_image_portrait, fk_thumbnail, fk_thumbnail_portrait, producer,\n" +
-                "                                 producer_type, subtitle_idx, fk_club, level, material, mental_level, technical_level,\n" +
-                "                                 physical_level)\n" +
-                "values ();");
 
 
-        System.out.println(
-
- */
     }
 
 

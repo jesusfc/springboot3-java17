@@ -23,6 +23,8 @@ public class testCollections {
         List<Long> added = new ArrayList<>(newList);
         added.removeAll(oldList);
 
+        System.out.println("List size: " + oldList.size());
+
         System.out.println("removed: " + removed);
         System.out.println("same: " + same);
         System.out.println("added: " + added);

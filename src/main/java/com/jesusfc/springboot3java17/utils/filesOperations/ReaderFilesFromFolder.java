@@ -2,15 +2,14 @@ package com.jesusfc.springboot3java17.utils.filesOperations;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.util.CollectionUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,14 +25,14 @@ public class ReaderFilesFromFolder {
     private static final String SEPARATOR_CSV = ";";
     private static final String FOLDER_LOCATION = "/home/jesusfc/Escritorio/metadata_22_06/";
 
+    private static final String FOLDER_PRODUCT_CODE_FILE = "/home/jesusfc/Escritorio/productId_code_ProductsVimeo.csv";
 
     static final String DB_URL = "jdbc:mysql://157.230.102.76:3306/eshitv_test?autoReconnect=true&useSSL=false";
     static final String USER = "root";
     static final String PASS = "64xUP5Tv";
 
 
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) {
         createInsertForTrainers();
         //loadSimpleProductList();
         //loadCollectionProductList();
@@ -42,32 +41,39 @@ public class ReaderFilesFromFolder {
     private static void createInsertForTrainers() {
 
         /*
-        219,MARÍATOSH
-        220,FRANCO VALICENTI
-        221,ANDRÉS BRAGANZA
-        222,ALBA TRIÑANES
-        223,LAURA LAKSHMI
+        -- 219,MARÍATOSH
+        -- 220,FRANCO VALICENTI
+        -- 221,ANDRÉS BRAGANZA
+        -- 222,ALBA TRIÑANES
+        -- 223,LAURA LAKSHMI
         224,CLARA ROSELL
         */
 
-        String trainerId = "219";
-        String trainerName = "MARIATOSH";
+        String trainerId = "224";
+        String trainerName = "CLARA ROSELL";
 
+        Set<String> resultIds = new TreeSet<>();
+
+        // Vimeo Id, clubSystem Id
+        Map<Long, String> vimeoIdClubSystemId = openSingleCSVFile();
         List<Product> productList = loadProductList();
         productList.forEach(product -> {
-            String INSERT_QUERY = "insert into trainer_product (fk_trainer, fk_product) values (#TRAINER_ID#, #PRODUCT_ID#);";
-            if (product.getTitle().toLowerCase().contains(trainerName.toLowerCase())){
+            if (product.getTitle().toLowerCase().contains(trainerName.toLowerCase())) {
                 Integer productId = product.getProductId();
                 System.out.println(productId);
-                String insert = INSERT_QUERY.replace("#TRAINER_ID#", trainerId).replace("#PRODUCT_ID#", "XXXX");
-                System.out.println(insert);
+                String clubSystemProductId = vimeoIdClubSystemId.get(productId.longValue());
+                if (clubSystemProductId != null) {
+                    resultIds.add(clubSystemProductId);
+                }
             }
         });
-        //System.out.println(productList.get(0));
 
-
-
-
+        // Pinta resultado
+        resultIds.forEach(prodId -> {
+            String INSERT_QUERY = "insert into trainer_product (fk_trainer, fk_product) values (#TRAINER_ID#, #PRODUCT_ID#);";
+            String insert = INSERT_QUERY.replace("#TRAINER_ID#", trainerId).replace("#PRODUCT_ID#", prodId);
+            System.out.println(insert);
+        });
 
 
     }
@@ -209,6 +215,30 @@ public class ReaderFilesFromFolder {
             productList.add(readFile(productId, FOLDER_LOCATION + fileName));
         });
         return productList;
+    }
+
+    private static Map<Long, String> openSingleCSVFile() {
+
+        Map<Long, String> result = new HashMap<>();
+
+        // Create an object of filereader
+        // class with CSV file as a parameter.
+        try {
+            FileReader filereader = new FileReader(FOLDER_PRODUCT_CODE_FILE);
+            // create csvReader object passing
+            // file reader as a parameter
+            CSVReader csvReader = new CSVReader(filereader);
+            String[] nextRecord;
+
+
+            // we are going to read data line by line
+            while ((nextRecord = csvReader.readNext()) != null) {
+                result.put(Long.parseLong(nextRecord[1]), nextRecord[0]);
+            }
+        } catch (IOException | CsvValidationException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
     private static Product readFile(Integer productId, String urlFile) {

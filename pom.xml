@@ -19,10 +19,10 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lombok-version>1.18.24</lombok-version>
+        <lombok-version>1.18.26</lombok-version>
         <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <jjwt.version>0.11.5</jjwt.version>
-        <open-api.version>2.0.2</open-api.version>
+        <open-api.version>2.0.4</open-api.version>
     </properties>
 
     <dependencies>

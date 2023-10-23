@@ -18,4 +18,5 @@ public class ProductRestController implements IProduct {
     public ResponseEntity<List<Product>> getProductList(Locale locale) {
         return null;
     }
+
 }

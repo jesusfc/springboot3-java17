@@ -7,7 +7,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -24,14 +25,14 @@ import java.util.Locale;
  */
 @RestController
 @AllArgsConstructor
-@Slf4j
+//@Log4j2
 @RequestMapping("/rest/test")
 public class TestRestController {
-
+    private static final Logger log = LogManager.getLogger();
     private final UserService userService;
     private final LocaleResolver localeResolver;
-
     private final MessageSource messageSource;
+
     @Operation(operationId = "logsTest")
     @GetMapping("/logs-test")
     public HttpStatus getLogsTest() {

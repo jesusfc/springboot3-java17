@@ -14,7 +14,7 @@ import java.util.Locale;
 
 // This class is used to configure the web application
 @Configuration
-public class AppConf implements WebMvcConfigurer {
+public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     // Create a new ResourceBundleMessageSource object

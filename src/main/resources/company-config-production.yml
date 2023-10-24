@@ -9,7 +9,7 @@ company-config:
     - www.abc.com
     - www.xyz.com
   default-property-style:
-    company-mcxt:
+    company-x:
       image-id: 123
       primary-color: #1e549d
     company-y:

@@ -1,6 +1,15 @@
-##############################
-###### GENERAL SETTINGS ######
-##############################
+###########################
+#### SECURITY SETTINGS ####
+###########################
+security:
+  jwt:
+    secret-key: wC0kL2XCJEbYITs2qJEBjA8NRFB3A54zh6EXMWvc6gCvY125VhR2aTf2FqxfJ1F26xWaPniR2mVh5nBpIlgDSdposd546SDgsdgSRDF35SDgjs4dsgsd542rtefSDGShfdh
+    issuer: The Rebel Alliance
+    expiration-in-ms: 14400000
+
+##########################################
+###### GENERAL SETTINGS DEVELOPMENT ######
+##########################################
 spring:
   application:
     name: SpringBoot 3 Development
@@ -9,9 +18,9 @@ spring:
       on-profile: development
     import:
       - company-config-development.yml
-###########################
-#### DATABASE SETTINGS ####
-###########################
+  ###########################
+  #### DATABASE SETTINGS ####
+  ###########################
   datasource:
     url: jdbc:mysql://localhost:3306/MySqlDB
     username: user
@@ -27,19 +36,15 @@ spring:
       show-sql: true
     properties:
       hibernate:
-        format_sql: true
+      format_sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
-###########################
-#### SECURITY SETTINGS ####
-###########################
-security:
-  jwt:
-    secret-key: wC0kL2XCJEbYITs2qJEBjA8NRFB3A54zh6EXMWvc6gCvY125VhR2aTf2FqxfJ1F26xWaPniR2mVh5nBpIlgDSdposd546SDgsdgSRDF35SDgjs4dsgsd542rtefSDGShfdh
-    issuer: The Rebel Alliance
-    expiration-in-ms: 14400000
+
 ---
+##########################################
+###### GENERAL SETTINGS PRODUCTION ######
+##########################################
 spring:
   application:
     name: SpringBoot 3 Production
@@ -48,3 +53,26 @@ spring:
       on-profile: production
     import:
       - company-config-production.yml
+
+  ###########################
+  #### DATABASE SETTINGS ####
+  ###########################
+  datasource:
+    url: jdbc:mysql://localhost:3306/MySqlDB
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  ###########################
+  ###### JPA SETTINGS #######
+  ###########################
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: true
+    properties:
+      hibernate:
+      format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    open-in-view: false

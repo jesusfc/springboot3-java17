@@ -190,6 +190,8 @@ components:
           example: Fdez.
         email:
           type: string
+          nullable: true
+          example: jfcaraballo@gmail.com
         enable:
           type: boolean
           default: false

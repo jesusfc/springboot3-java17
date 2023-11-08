@@ -25,6 +25,7 @@ public class User {
     private String familyName;
 
     @JsonProperty("email")
+    @Schema(nullable = true)
     private String email;
 
     @JsonProperty("enable")

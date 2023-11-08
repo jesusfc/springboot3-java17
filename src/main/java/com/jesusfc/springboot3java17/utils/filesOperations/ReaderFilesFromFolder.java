@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
+@Slf4j
 //@SpringBootApplication
 public class ReaderFilesFromFolder {
 
@@ -25,7 +26,9 @@ public class ReaderFilesFromFolder {
     private static final String SEPARATOR_CSV = ";";
     private static final String FOLDER_LOCATION = "/home/jesusfc/Escritorio/metadata_22_06/";
 
-    private static final String FOLDER_PRODUCT_CODE_FILE = "/home/jesusfc/Escritorio/productId_code_ProductsVimeo.csv";
+    private static final String FOLDER_PRODUCT_CODE_CSV_FILE = "/home/jesusfc/Escritorio/productId_code_ProductsVimeo.csv";
+
+    private static final String FOLDER_PRODUCT_CODE_TXT_FILE = "/home/jesusfc/Escritorio/trainer_product_10-10-2023.txt";
 
     static final String DB_URL = "jdbc:mysql://157.230.102.76:3306/eshitv_test?autoReconnect=true&useSSL=false";
     static final String USER = "root";
@@ -33,9 +36,10 @@ public class ReaderFilesFromFolder {
 
 
     public static void main(String[] args) {
-        createInsertForTrainers();
+        //createInsertForTrainers();
         //loadSimpleProductList();
         //loadCollectionProductList();
+        openSingleTXTFile();
     }
 
     private static void createInsertForTrainers() {
@@ -224,7 +228,7 @@ public class ReaderFilesFromFolder {
         // Create an object of filereader
         // class with CSV file as a parameter.
         try {
-            FileReader filereader = new FileReader(FOLDER_PRODUCT_CODE_FILE);
+            FileReader filereader = new FileReader(FOLDER_PRODUCT_CODE_CSV_FILE);
             // create csvReader object passing
             // file reader as a parameter
             CSVReader csvReader = new CSVReader(filereader);
@@ -237,6 +241,43 @@ public class ReaderFilesFromFolder {
             }
         } catch (IOException | CsvValidationException e) {
             throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    private static Map<Long, Long> openSingleTXTFile() {
+
+        Map<Long, Long> result = new HashMap<>();
+
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File(FOLDER_PRODUCT_CODE_TXT_FILE);
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String s = StringUtils.substringBetween(linea, "(", ")");
+                String[] split = s.split(",");
+                result.put(Long.parseLong(split[0]), Long.parseLong(split[1]));
+            }
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta
+            // una excepcion.
+            try {
+                if (null != fr) fr.close();
+            } catch (Exception e2) {
+                log.debug(e2.getMessage());
+            }
         }
         return result;
     }

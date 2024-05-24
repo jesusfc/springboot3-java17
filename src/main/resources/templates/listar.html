@@ -55,6 +55,20 @@
         </tbody>
     </table>
 
+    <table class="table table-striped" th:if="${not urlImages.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Url</th>
+            <th>Imagen</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="imagenes: ${urlImages}">
+            <td th:text="${imagenes}"></td>
+            <td><img th:src="${imagenes}" alt="" th:width="300px"></td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 </body>

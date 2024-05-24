@@ -3,6 +3,7 @@ package com.jesusfc.springboot3java17.controller.mvc;
 
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import com.jesusfc.springboot3java17.services.UserService;
+import com.jesusfc.springboot3java17.services.WebClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,6 +23,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final WebClientService webClientService;
 
     @GetMapping({"/index", "/", "", "/home"})
     public String index(Model model) {
@@ -32,6 +35,10 @@ public class UserController {
     public String getUsersList(Model model) {
         model.addAttribute("titulo", "Página de pruebas Spring MVC - Listado de usuarios ");
         model.addAttribute("usuarios", userService.getUserList());
+
+        List<String> imagesUrl = webClientService.getImagesUrl();
+        model.addAttribute("urlImages", imagesUrl);
+
         return "listar";
     }
 

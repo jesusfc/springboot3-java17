@@ -79,7 +79,7 @@ public class ErrorHandlerRestController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    //@ExceptionHandler(MaxUploadSizeExceededException.class)
     @ResponseStatus(value = HttpStatus.PAYLOAD_TOO_LARGE)
     public ResponseEntity<Map<String, String>> handleMultipartException(MaxUploadSizeExceededException ex) {
         Map<String, String> result = new HashMap<>();

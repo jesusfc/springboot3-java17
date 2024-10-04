@@ -18,6 +18,12 @@ spring:
       on-profile: development
     import:
       - company-config-development.yml
+  logging:
+    level:
+      org:
+        springframework:
+          context: DEBUG
+
   ###########################
   #### DATABASE SETTINGS ####
   ###########################
@@ -33,14 +39,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-      show-sql: true
     properties:
       hibernate:
       format_sql: true
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
-
 ---
 ##########################################
 ###### GENERAL SETTINGS PRODUCTION ######
@@ -69,10 +72,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-      show-sql: true
     properties:
       hibernate:
-      format_sql: true
+        format_sql: true
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
+    generate-ddl: true
+    show-sql:  true

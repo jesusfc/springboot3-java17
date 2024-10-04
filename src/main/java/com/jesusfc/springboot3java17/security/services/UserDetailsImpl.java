@@ -2,7 +2,7 @@ package com.jesusfc.springboot3java17.security.services;
 
 import com.jesusfc.springboot3java17.database.entity.UserEntity;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
-@Log4j2
+@Slf4j
 public class UserDetailsImpl implements UserDetails {
 
     private final UserEntity userEntity;

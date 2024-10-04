@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.NaturalId;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,11 +23,12 @@ public class VideoClubEntity implements Cloneable {
     private Long id;
 
     @Column(name = "code", unique = true, nullable = false, length = 3)
-    @NaturalId
     private String code;
+
     @Column(name = "name", nullable = false)
     @Size(max = 50)
     private String name;
+
     @Column(name = "description")
     @Size(max = 150)
     private String description;

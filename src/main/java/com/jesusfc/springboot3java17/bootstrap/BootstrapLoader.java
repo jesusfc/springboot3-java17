@@ -95,8 +95,8 @@ public class BootstrapLoader implements CommandLineRunner {
                     .videoClub(videoClubRepository.findByCode("ALC").get())
                     .build());
             filmRepository.save(FilmEntity.builder()
-                    .title("Capitan America")
-                    .filmCode("CAP_AMER")
+                    .title("Capitan America 2")
+                    .filmCode("CAP_AMER_2")
                     .videoClub(videoClubRepository.findByCode("ALP").get())
                     .build());
             filmRepository.save(FilmEntity.builder()
@@ -122,7 +122,7 @@ public class BootstrapLoader implements CommandLineRunner {
             collectionRepository.save(CollectionEntity.builder().title("Aventuras").build());
             collectionRepository.save(CollectionEntity.builder().title("Acción").build());
         }
-
+/*
         if (collectionFilmRepository.count() == 0) {
 
             collectionFilmRepository.save(CollectionFilmEntity.builder()
@@ -136,5 +136,7 @@ public class BootstrapLoader implements CommandLineRunner {
                     .film(filmRepository.getReferenceById(2L))
                     .idx(2L).build());
         }
+ */
+
     }
 }

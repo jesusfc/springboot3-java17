@@ -89,33 +89,43 @@ public class BootstrapLoader implements CommandLineRunner {
                     .filmCode("CAP_AMER")
                     .videoClub(videoClubRepository.findByCode("ALC").get())
                     .build());
+            /*
             filmRepository.save(FilmEntity.builder()
                     .title("Infinity")
                     .filmCode("INFINITY")
                     .videoClub(videoClubRepository.findByCode("ALC").get())
                     .build());
+
+             */
             filmRepository.save(FilmEntity.builder()
                     .title("Capitan America 2")
                     .filmCode("CAP_AMER_2")
                     .videoClub(videoClubRepository.findByCode("ALP").get())
                     .build());
+            /*
             filmRepository.save(FilmEntity.builder()
                     .title("Star Wars")
                     .filmCode("STAR_WARS")
                     .videoClub(videoClubRepository.findByCode("ALP").get())
                     .build());
+
+             */
         }
         if (userFilmRentedRepository.count() == 0) {
+
             userFilmRentedRepository.save(UserFilmRentedEntity.builder()
                     .user(userRepository.findByEmail("jfcaraballo@gmail.com").get())
                     .film(filmRepository.findById(1L).get())
                     .rentedOn(LocalDateTime.now())
                     .build());
+            /*
             userFilmRentedRepository.save(UserFilmRentedEntity.builder()
                     .user(userRepository.findByEmail("jfcaraballo@gmail.com").get())
                     .film(filmRepository.findById(2L).get())
                     .rentedOn(LocalDateTime.now())
                     .build());
+
+             */
         }
         if (collectionRepository.count() == 0) {
             filmRepository.getReferenceById(1L);

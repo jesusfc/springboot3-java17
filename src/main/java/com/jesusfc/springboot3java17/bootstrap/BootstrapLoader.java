@@ -6,11 +6,13 @@ import com.jesusfc.springboot3java17.security.RolesEnum;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Component
 @AllArgsConstructor
 public class BootstrapLoader implements CommandLineRunner {
@@ -84,32 +86,28 @@ public class BootstrapLoader implements CommandLineRunner {
                     .build());
         }
         if (filmRepository.count() == 0) {
+
             filmRepository.save(FilmEntity.builder()
                     .title("Capitan America")
                     .filmCode("CAP_AMER")
                     .videoClub(videoClubRepository.findByCode("ALC").get())
                     .build());
-            /*
             filmRepository.save(FilmEntity.builder()
                     .title("Infinity")
                     .filmCode("INFINITY")
                     .videoClub(videoClubRepository.findByCode("ALC").get())
                     .build());
 
-             */
             filmRepository.save(FilmEntity.builder()
                     .title("Capitan America 2")
                     .filmCode("CAP_AMER_2")
                     .videoClub(videoClubRepository.findByCode("ALP").get())
                     .build());
-            /*
             filmRepository.save(FilmEntity.builder()
                     .title("Star Wars")
                     .filmCode("STAR_WARS")
                     .videoClub(videoClubRepository.findByCode("ALP").get())
                     .build());
-
-             */
         }
         if (userFilmRentedRepository.count() == 0) {
 
@@ -118,21 +116,17 @@ public class BootstrapLoader implements CommandLineRunner {
                     .film(filmRepository.findById(1L).get())
                     .rentedOn(LocalDateTime.now())
                     .build());
-            /*
             userFilmRentedRepository.save(UserFilmRentedEntity.builder()
                     .user(userRepository.findByEmail("jfcaraballo@gmail.com").get())
                     .film(filmRepository.findById(2L).get())
                     .rentedOn(LocalDateTime.now())
                     .build());
-
-             */
         }
         if (collectionRepository.count() == 0) {
             filmRepository.getReferenceById(1L);
             collectionRepository.save(CollectionEntity.builder().title("Aventuras").build());
             collectionRepository.save(CollectionEntity.builder().title("Acción").build());
         }
-/*
         if (collectionFilmRepository.count() == 0) {
 
             collectionFilmRepository.save(CollectionFilmEntity.builder()
@@ -146,7 +140,5 @@ public class BootstrapLoader implements CommandLineRunner {
                     .film(filmRepository.getReferenceById(2L))
                     .idx(2L).build());
         }
- */
-
     }
 }

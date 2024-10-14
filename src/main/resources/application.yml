@@ -6,7 +6,6 @@ security:
     secret-key: wC0kL2XCJEbYITs2qJEBjA8NRFB3A54zh6EXMWvc6gCvY125VhR2aTf2FqxfJ1F26xWaPniR2mVh5nBpIlgDSdposd546SDgsdgSRDF35SDgjs4dsgsd542rtefSDGShfdh
     issuer: The Rebel Alliance
     expiration-in-ms: 14400000
-
 ##########################################
 ###### GENERAL SETTINGS DEVELOPMENT ######
 ##########################################
@@ -26,19 +25,20 @@ spring:
     username: user
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   ###########################
   ###### JPA SETTINGS #######
   ###########################
   jpa:
+    generate-ddl: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
+    show-sql: true
     properties:
-      hibernate:
       format_sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
     database: mysql
     open-in-view: false
-
 ---
 ##########################################
 ###### GENERAL SETTINGS PRODUCTION ######
@@ -51,7 +51,6 @@ spring:
       on-profile: production
     import:
       - company-config-production.yml
-
   ###########################
   #### DATABASE SETTINGS ####
   ###########################
@@ -61,15 +60,3 @@ spring:
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  ###########################
-  ###### JPA SETTINGS #######
-  ###########################
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-      format_sql: true
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    open-in-view: false

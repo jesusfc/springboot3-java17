@@ -18,7 +18,7 @@ import java.util.Objects;
 @Entity
 public class VideoClubEntity implements Cloneable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 

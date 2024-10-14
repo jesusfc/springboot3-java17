@@ -1,7 +1,6 @@
 package com.jesusfc.springboot3java17.database.entity;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -18,7 +17,6 @@ import java.io.Serializable;
 @ToString
 @Embeddable
 public class CollectionFilmKey implements Serializable {
-
 
     @JoinColumn(name = "collection_id")
     private Long collectionId;

@@ -31,8 +31,9 @@ public class FilmEntity implements Serializable, Cloneable {
     @Size(min = GENERAL_TITLE_MIN_CHAR, max = GENERAL_TITLE_MAX_CHAR, message = GENERAL_TITLE_CHAR_LENGTH)
     private String title;
 
-    @OneToOne
-    @JoinColumn(name = "video_club_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "video_clubs", nullable = false)
+    @ToString.Exclude
     private VideoClubEntity videoClub;
 
 

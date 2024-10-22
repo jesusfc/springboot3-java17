@@ -36,7 +36,11 @@ public class UserController {
         model.addAttribute("titulo", "Página de pruebas Spring MVC - Listado de usuarios ");
         model.addAttribute("usuarios", userService.getUserList());
 
-        List<String> imagesUrl = webClientService.getImagesUrl();
+        // Cargar imágenes del API externa y agregar al modelo
+        //List<String> imagesUrl = webClientService.getImagesUrl();
+        //model.addAttribute("urlImages", imagesUrl);
+
+        List<String> imagesUrl = List.of();
         model.addAttribute("urlImages", imagesUrl);
 
         return "listar";

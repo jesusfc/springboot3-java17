@@ -15,14 +15,14 @@ class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI(@Value("${application-description}")
-                                 String appDesciption,
+                                 String appDescription,
                                  @Value("${application-version}")
                                  String appVersion) {
         return new OpenAPI()
                 .info(new Info()
                         .title("SpringBoot Open application API")
                         .version(appVersion)
-                        .description(appDesciption)
+                        .description(appDescription)
                         .termsOfService("http:/www.jesusfc.com")
                         .version("1.0")
                         .contact(new Contact().

@@ -76,4 +76,17 @@ public class TestRestController {
         if (byEmail == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(byEmail, HttpStatus.OK);
     }
+
+    /**
+     * localhost:8080/rest/test/test-simple-post
+     * @param ids
+     * @param response
+     */
+    @PostMapping(value = "/test-simple-post")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void testSimplePost(@RequestBody List<Long> ids, HttpServletResponse response){
+        log.info("post: " + ids);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
 }

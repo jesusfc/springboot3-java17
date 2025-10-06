@@ -2,7 +2,6 @@ package com.jesusfc.springboot3java17.configuration;
 
 import com.jesusfc.springboot3java17.controller.filter.TestFilter;
 import com.jesusfc.springboot3java17.security.filter.JWTAuthenticationFilter;
-import com.jesusfc.springboot3java17.security.filter.JWTAuthorizationFilter;
 import com.jesusfc.springboot3java17.security.services.JWTService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +33,8 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources", "/v3/api-docs/**", "/mvc/**", "/images/**").permitAll()
+                                .requestMatchers("/", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**",
+                                        "/swagger-resources", "/v3/api-docs/**", "/mvc/**", "/images/**","/rest/test/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
@@ -42,8 +42,8 @@ public class SecurityConfig {
                         httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(new TestFilter(), JWTAuthenticationFilter.class)
-                .addFilter(new JWTAuthenticationFilter(authenticationManager, jwtService))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager, jwtService))
+             //   .addFilter(new JWTAuthenticationFilter(authenticationManager, jwtService))
+              //  .addFilter(new JWTAuthorizationFilter(authenticationManager, jwtService))
                 .build();
 
 
@@ -77,7 +77,7 @@ public class SecurityConfig {
     }
     */
 
-    @Bean
+   @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
